@@ -3,71 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spark Operations | The Venture Motherboard</title>
+    <title>Spark Operations | Venture Motherboard OS</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.2);
+            --bg: #020205;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #020205;
+            background-color: var(--bg);
             color: white;
             scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Dynamic Grid Background */
+        .bg-grid {
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle at center, black, transparent 90%);
+        }
+
+        /* DATA CRAWLER ANIMATION - SUBTLE */
+        .crawler-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .data-crawler {
+            position: absolute;
+            background: linear-gradient(to right, transparent, rgba(99, 102, 241, 0.4), transparent);
+            height: 1px;
+            width: 150px;
+            opacity: 0;
+            filter: blur(1px);
+        }
+
+        .data-crawler.vertical {
+            height: 150px;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.4), transparent);
+        }
+
+        @keyframes crawl-h {
+            0% { left: -20%; opacity: 0; }
+            20% { opacity: 0.3; }
+            80% { opacity: 0.3; }
+            100% { left: 120%; opacity: 0; }
+        }
+
+        @keyframes crawl-v {
+            0% { top: -20%; opacity: 0; }
+            20% { opacity: 0.3; }
+            80% { opacity: 0.3; }
+            100% { top: 120%; opacity: 0; }
         }
 
         .gradient-text {
-            background: linear-gradient(to right, #6366f1, #a855f7, #ec4899);
+            background: linear-gradient(to right, #818cf8, #c084fc, #f472b6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .glass-panel {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
         }
 
         .logo-glow {
-            filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.5));
+            filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.3));
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #020205; }
-        ::-webkit-scrollbar-thumb { background: #312e81; border-radius: 10px; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #1e1b4b; border-radius: 10px; }
 
-        @keyframes pulse-soft {
-            0%, 100% { opacity: 0.95; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.03); }
+        @keyframes pulse-node {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 0.9; }
         }
-        .animate-pulse-soft {
-            animation: pulse-soft 3s ease-in-out infinite;
-        }
-
-        input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            background: rgba(255, 255, 255, 0.05);
-            height: 4px;
-            border-radius: 5px;
-        }
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            background: #6366f1;
+        .node-pulse {
+            width: 6px;
+            height: 6px;
+            background: #22c55e;
             border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(99, 102, 241, 0.6);
+            display: inline-block;
+            box-shadow: 0 0 8px #22c55e;
+            animation: pulse-node 3s infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.01), transparent);
+            opacity: 0.3;
+            pointer-events: none;
+            animation: scanline 12s linear infinite;
+            z-index: 100;
         }
 
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .fade-in-section.is-visible {
             opacity: 1;
@@ -81,159 +141,265 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 1.5rem;
         }
         .modal.active { display: flex; }
         
         .venture-card {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            background: rgba(15, 23, 42, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
         }
         .venture-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.3);
+            background: rgba(15, 23, 42, 0.6);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        .venture-image-container {
+            position: relative;
+            height: 180px;
+            width: 100%;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            background: #000;
+        }
+        
+        .venture-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.1) brightness(0.6);
+            transition: all 0.8s ease;
+        }
+        
+        .venture-card:hover .venture-img {
+            filter: grayscale(0%) contrast(1) brightness(0.8);
+            transform: scale(1.05);
+        }
+
+        .viewfinder-corner {
+            position: absolute;
+            width: 12px;
+            height: 12px;
             border-color: rgba(99, 102, 241, 0.5);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+            pointer-events: none;
+        }
+        .v-tl { top: 15px; left: 15px; border-top: 2px solid; border-left: 2px solid; }
+        .v-tr { top: 15px; right: 15px; border-top: 2px solid; border-right: 2px solid; }
+        .v-bl { bottom: 15px; left: 15px; border-bottom: 2px solid; border-left: 2px solid; }
+        .v-br { bottom: 15px; right: 15px; border-bottom: 2px solid; border-right: 2px solid; }
+
+        .terminal-box {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .cursor-blink {
+            display: inline-block;
+            width: 6px;
+            height: 12px;
+            background: var(--primary);
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .ticker-wrap {
+            width: 100%;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .ticker-move {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 120s linear infinite;
         }
     </style>
 </head>
 <body>
 
+    <div class="scanline"></div>
+    <div id="crawler-layer" class="crawler-container"></div>
+
     <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-6">
+    <nav id="navbar" class="fixed w-full z-[100] transition-all duration-500 py-8 px-6 text-left">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <!-- LOGO REMOVED FROM HEADER AS REQUESTED -->
-                <div class="flex flex-col text-white">
+                <div class="flex flex-col">
                     <span class="font-black text-2xl tracking-tighter uppercase italic leading-none group-hover:text-indigo-400 transition-colors">Spark</span>
-                    <span class="font-bold text-[10px] tracking-[0.4em] uppercase text-indigo-400 leading-none mt-1">Operations</span>
+                    <span class="mono text-[8px] tracking-[0.3em] uppercase text-indigo-500 leading-none mt-1 opacity-70">Motherboard_OS</span>
                 </div>
             </div>
-            <div class="hidden lg:flex items-center gap-8 text-[10px] font-black tracking-widest uppercase text-slate-500">
-                <a href="#hero" class="hover:text-white transition-colors">Motherboard</a>
-                <a href="#portfolio" class="hover:text-white transition-colors">Venture Pool</a>
-                <a href="#impact" class="hover:text-white transition-colors">Impact Fund</a>
-                <a href="#oracle" class="hover:text-white transition-colors">AI Oracle</a>
+            <div class="hidden lg:flex items-center gap-10 text-[9px] font-bold tracking-widest uppercase text-slate-500">
+                <a href="#hero" class="hover:text-white transition-colors">Core</a>
+                <a href="#portfolio" class="hover:text-white transition-colors">Stations</a>
+                <a href="#impact" class="hover:text-white transition-colors">Social</a>
+                <a href="#oracle" class="hover:text-white transition-colors">Neural</a>
             </div>
             <div class="flex items-center gap-4">
-                <button onclick="toggleModal('registerModal', true, 'donation')" class="hidden md:block px-6 py-2.5 bg-white/5 border border-white/10 text-white rounded-full text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all">Support Us</button>
-                <button onclick="toggleModal('registerModal', true)" class="px-6 py-2.5 bg-indigo-600 text-white rounded-full text-xs font-black uppercase tracking-widest hover:bg-indigo-500 transition-all shadow-lg">Join Operations</button>
+                <button onclick="toggleModal('registerModal', true, 'donation')" class="hidden md:block px-5 py-2 bg-white/5 border border-white/5 text-slate-400 rounded-full text-[9px] font-black uppercase tracking-widest hover:text-white hover:bg-white/10 transition-all">Support</button>
+                <button onclick="toggleModal('registerModal', true)" class="px-7 py-2.5 bg-indigo-600 text-white rounded-full text-[9px] font-black uppercase tracking-widest hover:bg-indigo-500 transition-all shadow-lg">Console</button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="relative pt-48 pb-20 px-6 z-10 text-center fade-in-section">
-        <div class="max-w-6xl mx-auto flex flex-col items-center">
+    <section id="hero" class="relative pt-40 pb-20 px-6 z-10 text-center overflow-hidden">
+        <div class="absolute inset-0 bg-grid pointer-events-none"></div>
+        <div class="max-w-6xl mx-auto flex flex-col items-center relative z-20">
             
-            <!-- ENLARGED LOGO (Replaced video/previous logo) -->
-            <div class="relative w-64 h-64 md:w-[480px] md:h-[480px] mb-12 logo-glow animate-pulse-soft overflow-hidden rounded-[4rem] bg-white/5 border border-white/10 shadow-2xl">
-                <img src="https://iili.io/fww4QyB.png" alt="Spark Operations Motherboard" class="w-full h-full object-contain p-8">
+            <!-- LOGO CONTAINER -->
+            <div class="relative w-64 h-64 md:w-80 md:h-80 mb-12 flex items-center justify-center group opacity-90 hover:opacity-100 transition-opacity duration-700">
+                <img src="https://iili.io/fww4QyB.png" alt="Spark Operations" class="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-105">
+                
+                <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2.5 px-4 py-1.5 bg-black/60 rounded-full border border-white/5 backdrop-blur-md">
+                    <span class="node-pulse"></span>
+                    <span class="mono text-[7px] uppercase tracking-widest text-slate-500 font-bold">Core System: Active</span>
+                </div>
             </div>
 
-            <span class="text-indigo-400 font-black tracking-[0.3em] text-[10px] uppercase mb-6 block">The Mother of Modern Ventures</span>
-            <h1 class="text-6xl md:text-[8rem] font-black tracking-tighter leading-[0.85] mb-12 uppercase italic text-white">
-                Build. <br> <span class="gradient-text">Empower.</span> <br> Transform.
-            </h1>
-            <p class="text-xl md:text-3xl text-slate-400 max-w-4xl mx-auto mb-12 font-light leading-relaxed">
-                Spark Operations fuels urban progress through venture backing and community support. From logistics to clean energy, we turn raw ideas into operational realities.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <a href="#portfolio" class="px-12 py-6 bg-white text-black rounded-2xl font-black text-xl flex items-center gap-3 hover:scale-105 transition-transform shadow-2xl">
-                    Explore Venture Pool <i data-lucide="layout-grid"></i>
-                </a>
-                <button onclick="toggleModal('registerModal', true, 'donation')" class="px-12 py-6 bg-indigo-600/10 border border-indigo-500/30 text-indigo-400 rounded-2xl font-black text-xl hover:bg-indigo-600 hover:text-white transition-all">
-                    Support the Mission
-                </button>
+            <div class="fade-in-section w-full max-w-4xl text-left md:text-center">
+                <!-- System Diagnostics Bar -->
+                <div class="flex flex-wrap justify-center gap-8 mb-10 mono text-[8px] uppercase tracking-[0.2em] text-slate-600 border-b border-white/5 pb-4">
+                    <span>Uptime: <span id="system-uptime" class="text-indigo-400 font-bold">00:00:00</span></span>
+                    <span>Nodes: <span class="text-indigo-400 font-bold">11</span></span>
+                    <span>Load: <span id="network-load" class="text-indigo-400 font-bold">12%</span></span>
+                    <span>Lead: <span class="text-white font-bold">Spark Dzakpasu</span></span>
+                </div>
+
+                <span class="mono text-indigo-500/80 font-bold tracking-[0.4em] text-[9px] uppercase mb-6 block">Unified Economic Operating System</span>
+                <h1 class="text-6xl md:text-[8rem] font-black tracking-tighter leading-[0.85] mb-12 uppercase italic text-white">
+                    One Node. <br> <span class="gradient-text">Absolute</span> <br> Equity.
+                </h1>
+                
+                <!-- Live Terminal Feed -->
+                <div class="terminal-box rounded-2xl p-5 mb-14 text-left w-full max-w-lg mx-auto opacity-70 hover:opacity-100 transition-opacity">
+                    <div id="terminal-feed" class="mono text-[9px] text-indigo-400/60 leading-relaxed min-h-[40px]">
+                        > SYNCING SPARK_DZAKPASU_CORE... <br>
+                        > <span class="text-slate-500">STATIONS READY_</span><span class="cursor-blink"></span>
+                    </div>
+                </div>
+
+                <p class="text-xl md:text-2xl text-slate-500 max-w-3xl mx-auto mb-14 font-light leading-relaxed italic">
+                    Bridging the gap between human ambition and operational reality. BACK sub-stations, PROPOSE visions, or FUND progress.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <a href="#portfolio" class="px-14 py-5 bg-white text-black rounded-full font-black text-lg flex items-center gap-3 hover:scale-105 transition-all shadow-xl">
+                        Console Stations <i data-lucide="terminal" class="w-5 h-5"></i>
+                    </a>
+                    <button onclick="toggleModal('registerModal', true, 'donation')" class="px-14 py-5 bg-white/5 border border-white/10 text-white rounded-full font-black text-lg hover:bg-white/10 transition-all">
+                        Support Fund
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Data Ticker -->
+    <div class="ticker-wrap mono text-[8px] uppercase tracking-[0.3em] text-slate-700">
+        <div class="ticker-move">
+            NODE_01: NOMINAL • NODE_02: NOMINAL • NODE_03: NOMINAL • NODE_04: NOMINAL • SYSTEM SYNC COMPLETE • ARCHITECT: SPARK DZAKPASU • NODE_05: NOMINAL • NODE_06: NOMINAL • NODE_07: NOMINAL • NODE_08: NOMINAL • VESTING PROTOCOLS ACTIVE • 
+        </div>
+    </div>
+
     <!-- Venture Portfolio -->
     <section id="portfolio" class="py-32 px-6 fade-in-section">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-                <div class="max-w-2xl text-white">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full mb-6">
-                        <i data-lucide="layers" class="text-indigo-400 w-4 h-4"></i>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Mother-Node Portfolio</span>
+        <div class="max-w-7xl mx-auto text-left">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+                <div class="max-w-2xl text-left">
+                    <div class="inline-flex items-center gap-3 px-4 py-2 bg-indigo-500/5 border border-white/5 rounded-full mb-8">
+                        <i data-lucide="layers" class="text-indigo-500 w-4 h-4"></i>
+                        <span class="mono text-[8px] font-bold uppercase tracking-widest text-slate-500">Mother-Node Sub-Stations</span>
                     </div>
-                    <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-none">The Venture <br><span class="text-indigo-500">Pool.</span></h2>
+                    <h2 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-white">Venture <br><span class="text-indigo-600">Nodes.</span></h2>
                 </div>
-                <p class="text-slate-500 font-light italic max-w-sm text-right leading-relaxed">Active business sub-stations currently accepting backing and expertise.</p>
+                <div class="max-w-sm text-left">
+                    <p class="text-slate-500 text-sm font-light italic leading-relaxed">Independent revenue sub-stations plugged into the central motherboard. Back a node to establish a handshake.</p>
+                </div>
             </div>
 
-            <div id="venture-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-white text-left">
+            <div id="venture-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-white">
                 <!-- Injected via JavaScript -->
             </div>
         </div>
     </section>
 
-    <!-- IMPACT FUND SECTION -->
-    <section id="impact" class="py-32 px-6 bg-white/[0.02] fade-in-section text-left">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div class="relative">
-                <div class="absolute -top-20 -left-20 w-64 h-64 bg-indigo-600/10 blur-3xl rounded-full"></div>
-                <div class="relative z-10 text-white">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-8">
-                        <i data-lucide="heart" class="text-indigo-400 w-4 h-4"></i>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">Philanthropic Support</span>
+    <!-- Mission Dashboard -->
+    <section id="mission" class="py-40 px-6 relative overflow-hidden bg-[#050508] border-y border-white/5 fade-in-section text-left">
+        <div class="max-w-7xl mx-auto relative z-10 text-white">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
+                <div class="lg:col-span-5 relative group">
+                    <div class="absolute inset-0 bg-indigo-600 blur-[100px] opacity-10 transition-opacity"></div>
+                    <div class="relative rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-1000 text-left">
+                        <img src="https://iili.io/fjHhAeS.jpg" alt="Founder" class="w-full aspect-[4/5] object-cover opacity-80 group-hover:opacity-100">
                     </div>
-                    <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-none mb-8">Spark <br><span class="text-indigo-500">Impact Fund.</span></h2>
-                    <p class="text-xl text-slate-400 font-light italic leading-relaxed mb-10">
-                        We accept donations to fund essential urban projects that are mission-critical but don't follow a profit-first model. From clean air initiatives to youth education.
+                    <div class="absolute -bottom-8 -right-8 p-10 glass-panel rounded-[2.5rem] border border-indigo-500/10 text-left">
+                        <p class="mono text-[9px] font-bold text-indigo-500 uppercase tracking-widest mb-2">Lead Architect</p>
+                        <p class="text-3xl font-black italic uppercase text-white tracking-tighter">Spark Dzakpasu</p>
+                    </div>
+                </div>
+                <div class="lg:col-span-7 text-left">
+                    <h3 class="text-4xl md:text-6xl font-black uppercase italic mb-10 leading-tight">Bridging <br> <span class="text-indigo-500">Dream & Data.</span></h3>
+                    <p class="text-2xl md:text-3xl font-light italic leading-snug text-slate-400 mb-12 border-l-2 border-indigo-600/30 pl-8">
+                        "Spark Operations provides the <strong>capital and technical scaffolding</strong> to turn individual grit into industrial reality. We invest in people, ideas, and the city."
                     </p>
-                    <ul class="space-y-4 mb-10">
-                        <li class="flex items-center gap-3 text-slate-300">
-                            <i data-lucide="check-circle-2" class="text-green-500 w-5 h-5"></i>
-                            <span>Funding Waste-to-Energy local infrastructure.</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-slate-300">
-                            <i data-lucide="check-circle-2" class="text-green-500 w-5 h-5"></i>
-                            <span>Subsidizing technical training for street youth.</span>
-                        </li>
-                    </ul>
-                    <button onclick="toggleModal('registerModal', true, 'donation')" class="px-12 py-5 bg-indigo-600 text-white rounded-2xl font-black text-xl uppercase italic shadow-lg hover:bg-indigo-500 transition-all">
-                        Donate to the Fund
-                    </button>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="p-8 bg-slate-900 border border-white/10 rounded-[3rem] text-center">
-                    <div class="text-3xl font-black italic text-white mb-2">100%</div>
-                    <p class="text-[10px] uppercase tracking-widest text-slate-500">Direct Allocation</p>
-                </div>
-                <div class="p-8 bg-slate-900 border border-white/10 rounded-[3rem] text-center mt-8">
-                    <div class="text-3xl font-black italic text-white mb-2">$0</div>
-                    <p class="text-[10px] uppercase tracking-widest text-slate-500">Admin Overhead</p>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <p class="mono text-[9px] text-indigo-500 uppercase mb-2">01. Liquidity Injection</p>
+                            <p class="text-slate-500 text-xs italic">Direct funding models that eliminate standard entry barriers.</p>
+                        </div>
+                        <div>
+                            <p class="mono text-[9px] text-indigo-500 uppercase mb-2">02. Node Scaling</p>
+                            <p class="text-slate-500 text-xs italic">Shared technical infrastructure to reduce sub-station friction.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Mission Section -->
-    <section id="mission" class="py-24 px-6 relative overflow-hidden bg-indigo-600/10 border-y border-indigo-500/10 fade-in-section">
-        <div class="max-w-6xl mx-auto relative z-10 text-white">
-            <div class="flex flex-col lg:flex-row items-center gap-12 md:gap-20">
-                <div class="shrink-0 relative group">
-                    <div class="absolute inset-0 bg-indigo-500 blur-3xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                    <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-[3rem] overflow-hidden border-2 border-white/10 shadow-2xl bg-slate-800">
-                        <img src="https://iili.io/fjHhAeS.jpg" alt="Founder" class="w-full h-full object-cover transition-all duration-700">
+    <!-- IMPACT FUND -->
+    <section id="impact" class="py-32 px-6 fade-in-section text-left">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass-panel rounded-[4rem] p-12 md:p-20 overflow-hidden relative text-left">
+                <div class="absolute top-0 right-0 p-12 opacity-5"><i data-lucide="heart" class="w-64 h-64 text-indigo-500"></i></div>
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center text-left">
+                    <div class="text-left">
+                        <div class="inline-flex items-center gap-3 px-4 py-2 bg-indigo-500/10 border border-indigo-500/10 rounded-full mb-8">
+                            <i data-lucide="activity" class="text-indigo-400 w-4 h-4"></i>
+                            <span class="mono text-[9px] font-black uppercase tracking-widest text-indigo-400">Social Yield Protocol</span>
+                        </div>
+                        <h2 class="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-white mb-10">Impact <br><span class="text-indigo-500">Fund.</span></h2>
+                        <p class="text-xl text-slate-500 font-light italic leading-relaxed mb-10 max-w-lg">
+                            We support urban projects that are mission-critical but don't follow a profit-first model. Subsidizing the life-blood of our cities.
+                        </p>
+                        <button onclick="toggleModal('registerModal', true, 'donation')" class="px-14 py-6 bg-indigo-600 text-white rounded-full font-black text-2xl uppercase italic shadow-lg hover:bg-indigo-500 transition-all">
+                            Donate to Fund
+                        </button>
                     </div>
-                    <div class="absolute -bottom-6 -right-6 p-6 bg-indigo-600 rounded-3xl border border-white/10 shadow-xl text-center">
-                        <p class="text-xs font-black uppercase tracking-widest mb-1 opacity-60">Operations Architect</p>
-                        <p class="text-sm font-bold italic text-indigo-100 italic">"We support ideas financially."</p>
+                    <div class="grid grid-cols-2 gap-6 relative text-white">
+                        <div class="p-10 bg-black/40 border border-white/5 rounded-[3rem] text-center">
+                            <div class="text-4xl font-black italic mb-2">100%</div>
+                            <p class="mono text-[7px] uppercase tracking-[0.3em] text-slate-600">Allocation</p>
+                        </div>
+                        <div class="p-10 bg-black/40 border border-white/5 rounded-[3rem] text-center mt-12 text-white">
+                            <div class="text-4xl font-black italic mb-2">$0</div>
+                            <p class="mono text-[7px] uppercase tracking-[0.3em] text-slate-600">Fees</p>
+                        </div>
                     </div>
-                </div>
-                <div class="flex-1 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full mb-8">
-                        <i data-lucide="zap" class="text-indigo-400 w-4 h-4 fill-indigo-400/20"></i>
-                        <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">The Operations Core</span>
-                    </div>
-                    <h2 class="text-3xl md:text-5xl font-black italic uppercase leading-tight tracking-tight mb-8">
-                        Helping Dreams <span class="text-indigo-400">Exist.</span>
-                    </h2>
-                    <p class="text-2xl md:text-4xl font-light italic leading-snug text-slate-200 mb-8">
-                        "Spark Operations provides the <strong>financial support</strong> and technical scaffolding to turn raw ambition into industrial reality. We invest in people, ideas, and the city."
-                    </p>
                 </div>
             </div>
         </div>
@@ -241,22 +407,20 @@
 
     <!-- AI Oracle Section -->
     <section id="oracle" class="py-32 px-6 relative overflow-hidden fade-in-section">
-        <div class="max-w-5xl mx-auto relative z-10">
-            <div class="bg-slate-900 border border-white/10 rounded-[3rem] p-8 md:p-16 shadow-2xl text-center">
-                <div class="mb-12">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-indigo-500 rounded-full text-[10px] font-black uppercase mb-4 text-white"><i data-lucide="cpu" class="w-3 h-3"></i> Spark Intelligence</div>
-                    <h2 class="text-4xl md:text-5xl font-black italic uppercase mb-6 text-white">Consult the Oracle.</h2>
-                    <p class="text-slate-400 text-lg leading-relaxed">Input your capital, skills, or ideas. The Motherboard will identify your optimal path.</p>
-                </div>
-                <div class="space-y-6">
-                    <textarea id="aiInput" placeholder="Ex: I have an idea for urban agriculture... or I want to invest $2000 into transport..." class="w-full h-32 bg-black/50 border border-white/10 rounded-2xl p-6 text-slate-200 focus:outline-none focus:border-indigo-500 transition-all resize-none font-medium text-white"></textarea>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <button onclick="handleAI('forecaster')" class="px-8 py-5 bg-indigo-600 rounded-2xl font-black uppercase tracking-tighter text-xl transition-all flex items-center justify-center gap-2 text-white">
-                            <i data-lucide="sparkles" class="w-5 h-5"></i> Opportunity Match
-                        </button>
-                        <button onclick="handleAI('architect')" class="px-8 py-5 bg-white/5 border border-white/10 rounded-2xl font-black uppercase tracking-tighter text-xl hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-white">
-                            <i data-lucide="rocket" class="w-5 h-5"></i> Blueprint Idea
-                        </button>
+        <div class="max-w-4xl mx-auto relative z-10 text-center text-white">
+            <div class="bg-slate-900 border border-white/10 rounded-[4rem] p-10 md:p-20 shadow-2xl relative overflow-hidden">
+                <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+                <div class="relative z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-indigo-500 rounded-lg text-[8px] font-black uppercase mb-8 text-white"><i data-lucide="cpu" class="w-3 h-3"></i> Neural Interface</div>
+                    <h2 class="text-5xl md:text-7xl font-black italic uppercase mb-8 tracking-tighter">Consult the Oracle.</h2>
+                    <p class="text-slate-500 text-lg leading-relaxed mb-12 italic">The Motherboard's AI identifies the best sub-station for your capital, skills, or original vision.</p>
+                    
+                    <div class="space-y-6 max-w-2xl mx-auto">
+                        <textarea id="aiInput" placeholder="> Type entry data..." class="w-full h-40 bg-black/80 border border-white/10 rounded-3xl p-8 text-indigo-400 mono text-sm focus:outline-none focus:border-indigo-500 transition-all resize-none shadow-inner"></textarea>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <button onclick="handleAI('forecaster')" class="px-10 py-5 bg-white text-black rounded-full font-black uppercase tracking-widest text-[10px] transition-all hover:scale-105">Sync Match</button>
+                            <button onclick="handleAI('architect')" class="px-10 py-5 bg-white/5 border border-white/10 rounded-full font-black uppercase tracking-widest text-[10px] hover:bg-white/10 transition-all text-white">Idea Blueprint</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -264,41 +428,40 @@
     </section>
 
     <!-- Calculator Section -->
-    <section id="calculator" class="py-32 px-6 bg-white/[0.02] fade-in-section">
+    <section id="calculator" class="py-32 px-6 bg-white/[0.02] fade-in-section text-left">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center text-white text-left">
             <div>
-                <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter mb-8 text-white">Mother-Node <br /><span class="text-indigo-500 underline decoration-4 underline-offset-8">Math.</span></h2>
-                <p class="text-xl text-slate-400 mb-12 font-light italic leading-relaxed">Calculate your potential aggregated equity stake across the entire venture collection.</p>
+                <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter mb-8">Node <br /><span class="text-indigo-500 underline decoration-1 underline-offset-8">Mathematics.</span></h2>
+                <p class="text-xl text-slate-500 mb-12 font-light italic leading-relaxed">Calculate your potential aggregated equity stake across the entire venture ecosystem.</p>
                 <div class="space-y-12">
                     <div class="space-y-4">
-                        <div class="flex justify-between font-black uppercase text-[10px] tracking-widest text-slate-500">
-                            <span>Contribution Effort</span>
-                            <span id="hours-display" class="text-indigo-400">20 Hours</span>
+                        <div class="flex justify-between font-black uppercase text-[9px] tracking-widest text-slate-600">
+                            <span>Contribution (Hours)</span>
+                            <span id="hours-display" class="text-indigo-400 font-bold">20</span>
                         </div>
                         <input type="range" id="hours-slider" min="1" max="80" value="20" class="w-full">
                     </div>
                     <div class="space-y-4">
-                        <div class="flex justify-between font-black uppercase text-[10px] tracking-widest text-slate-500">
-                            <span>Capital Pooled</span>
-                            <span id="capital-display" class="text-green-400">$500</span>
+                        <div class="flex justify-between font-black uppercase text-[9px] tracking-widest text-slate-600">
+                            <span>Pooled Capital ($)</span>
+                            <span id="capital-display" class="text-indigo-400 font-bold">500</span>
                         </div>
                         <input type="range" id="capital-slider" min="0" max="10000" step="100" value="500" class="w-full">
                     </div>
                 </div>
             </div>
-            <div class="bg-slate-900 border border-white/10 rounded-[4rem] p-12 text-center relative shadow-2xl">
-                <div class="relative z-10">
-                    <h3 class="text-xl font-black uppercase tracking-widest text-slate-500 mb-8 italic">Projected Equity Node</h3>
-                    <div id="ownership-result" class="text-7xl font-black italic text-white">1.100%</div>
-                    <div class="mt-8 grid grid-cols-2 gap-4">
-                        <div class="p-6 bg-white/5 rounded-3xl border border-white/5">
-                            <div class="text-[10px] font-black uppercase text-slate-500">Reputation</div>
-                            <div id="rep-result" class="text-2xl font-black text-white">+50</div>
-                        </div>
-                        <div class="p-6 bg-white/5 rounded-3xl border border-white/5 text-green-500">
-                            <div class="text-[10px] font-black uppercase text-slate-500">Status</div>
-                            <div class="text-2xl font-black italic tracking-tighter">Verified</div>
-                        </div>
+            <div class="bg-slate-900 border border-white/5 rounded-[4rem] p-12 text-center relative shadow-2xl">
+                <h3 class="text-lg font-black uppercase tracking-widest text-slate-600 mb-8 italic">Projected Node Stake</h3>
+                <div id="ownership-result" class="text-7xl font-black italic text-white mb-6">1.100%</div>
+                <div id="node-tier-display" class="mono text-indigo-400 text-[10px] font-bold uppercase tracking-[0.4em] mb-10">RELAY_NODE_V1</div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-6 bg-white/5 rounded-3xl border border-white/5 text-left">
+                        <p class="text-[9px] font-black uppercase text-slate-500 tracking-widest">Reputation</p>
+                        <p id="rep-result" class="text-2xl font-black text-white">+50</p>
+                    </div>
+                    <div class="p-6 bg-white/5 rounded-3xl border border-white/5 text-left text-green-500">
+                        <p class="text-[9px] font-black uppercase text-slate-500 tracking-widest">Node Status</p>
+                        <p class="text-2xl font-black italic">SYNC</p>
                     </div>
                 </div>
             </div>
@@ -306,214 +469,154 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 border-t border-white/5 text-center px-6 text-slate-600 font-black uppercase text-[10px] tracking-widest bg-[#020205]">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-           <div class="flex flex-col text-left">
-                <span class="font-black text-xl text-white italic">Spark Operations</span>
-                <span class="text-[8px] text-indigo-500 tracking-[0.4em]">The Venture Motherboard</span>
+    <footer class="py-20 border-t border-white/5 px-6 bg-[#020205] text-left">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 text-white text-left">
+           <div class="flex flex-col text-left w-full md:w-auto">
+                <span class="font-black text-3xl italic tracking-tighter">Spark Operations</span>
+                <span class="mono text-[8px] text-indigo-500 tracking-[0.4em] uppercase">Authored by Architect Spark Dzakpasu</span>
            </div>
-           <div>© 2025 Collective Ownership Operating System</div>
-           <div class="flex gap-8">
-                <!-- UPDATED FOOTER LOGO -->
-                <div class="w-10 h-10 flex items-center justify-center overflow-hidden rounded-md bg-white/5 p-1 border border-white/10">
+           
+           <div class="flex items-center gap-10">
+                <div class="flex flex-col text-right mr-4">
+                    <span class="mono text-[8px] text-slate-700 uppercase">System Time</span>
+                    <span id="footer-time" class="mono text-[10px] text-slate-500">00:00:00 UTC</span>
+                </div>
+                <div class="w-16 h-16 flex items-center justify-center overflow-hidden rounded-2xl bg-white/5 p-2 border border-white/10">
                     <img src="https://iili.io/fww4QyB.png" alt="Logo" class="w-full h-full object-contain">
                 </div>
            </div>
         </div>
+        <div class="max-w-7xl mx-auto mt-20 pt-10 border-t border-white/5 flex justify-between text-[8px] mono text-slate-800 uppercase tracking-widest text-left">
+            <p>© 2025 Spark Operations Node Net.</p>
+            <p>Accra Terminal | +233551389510</p>
+        </div>
     </footer>
 
-    <!-- Register Modal -->
+    <!-- Modals -->
     <div id="registerModal" class="modal">
-        <div class="absolute inset-0 bg-black/95 backdrop-blur-2xl" onclick="toggleModal('registerModal', false)"></div>
-        <div class="relative w-full max-w-xl glass-panel rounded-[3.5rem] p-8 md:p-12 border border-white/10 shadow-2xl text-white">
-            <button onclick="toggleModal('registerModal', false)" class="absolute top-8 right-8 text-slate-500 hover:text-white"><i data-lucide="x"></i></button>
+        <div class="absolute inset-0 bg-black/98 backdrop-blur-2xl" onclick="toggleModal('registerModal', false)"></div>
+        <div class="relative w-full max-w-xl glass-panel rounded-[3.5rem] p-10 border border-white/10 shadow-2xl text-white">
+            <button onclick="toggleModal('registerModal', false)" class="absolute top-8 right-8 text-slate-500 hover:text-white transition-colors"><i data-lucide="x"></i></button>
             <div id="regContent">
-                <div class="mb-10 text-center">
-                    <h3 class="text-3xl font-black uppercase italic tracking-tighter text-white" id="modalHeaderTitle">Connect to Operations</h3>
-                    <p class="text-slate-400 mt-2 font-light">Join a pool, support our cause, or fund your idea.</p>
-                </div>
-                <form id="regForm" class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input required type="text" id="regName" class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-white text-sm outline-none focus:border-indigo-500" placeholder="Full Name">
-                        <select id="regVenture" class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-white text-sm outline-none focus:border-indigo-500">
-                            <!-- Populated by JS -->
-                        </select>
-                    </div>
-                    <textarea required id="regDesc" class="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-white text-sm h-24 outline-none focus:border-indigo-500 resize-none" placeholder="Details..."></textarea>
-                    <button type="submit" class="w-full py-5 bg-indigo-600 hover:bg-indigo-500 rounded-2xl font-black text-xl uppercase italic tracking-tighter text-white shadow-xl transition-all">Send Validation</button>
+                <h3 class="text-3xl font-black uppercase italic tracking-tighter text-white mb-2" id="modalHeaderTitle">System Connection</h3>
+                <p class="mono text-[9px] text-indigo-500 uppercase mb-10">Select sub-station node.</p>
+                <form id="regForm" class="space-y-4">
+                    <input required type="text" id="regName" class="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-8 text-white text-sm mono focus:border-indigo-500 outline-none" placeholder="LEGAL_ID">
+                    <select id="regVenture" class="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-8 text-white text-sm mono focus:border-indigo-500 outline-none appearance-none"></select>
+                    <textarea required id="regDesc" class="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-8 text-white text-sm mono h-24 focus:border-indigo-500 outline-none resize-none" placeholder="LOG_DATA"></textarea>
+                    <button type="submit" class="w-full py-5 bg-indigo-600 rounded-full font-black text-lg uppercase italic text-white transition-all">Establish Handshake</button>
                 </form>
             </div>
             <div id="regSuccess" class="hidden py-10 text-center">
-                <i data-lucide="check-circle-2" class="w-20 h-20 text-green-500 mx-auto mb-8"></i>
-                <h3 class="text-3xl font-black uppercase italic mb-4">Confirmed</h3>
-                <p class="text-slate-400 text-lg mb-8 font-light italic">Continue to WhatsApp to finalize your position.</p>
-                <button onclick="toggleModal('registerModal', false)" class="px-10 py-4 bg-white/5 border border-white/10 rounded-2xl font-black uppercase italic text-white">Close</button>
+                <i data-lucide="cpu" class="w-16 h-16 text-indigo-500 mx-auto mb-6 animate-pulse"></i>
+                <h3 class="text-2xl font-black uppercase italic">Node Connected</h3>
+                <p class="text-slate-500 text-sm italic text-center">Redirecting to primary secure contact channel.</p>
             </div>
         </div>
     </div>
 
-    <!-- Insight Modal -->
     <div id="insightModal" class="modal">
-        <div class="absolute inset-0 bg-black/90 backdrop-blur-xl" onclick="toggleModal('insightModal', false)"></div>
-        <div class="relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[3rem] p-10 md:p-16 shadow-2xl overflow-y-auto max-h-[90vh]">
-            <button onclick="toggleModal('insightModal', false)" class="absolute top-8 right-8 text-slate-500 hover:text-white"><i data-lucide="x"></i></button>
-            <div id="insightIcon" class="mb-8 w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center"></div>
-            <h3 id="insightTitle" class="text-4xl font-black uppercase italic mb-6 text-white tracking-tighter leading-none"></h3>
-            <div id="insightContent" class="text-slate-300 leading-relaxed font-light mb-10 space-y-6 text-left"></div>
-            <button onclick="investFromInsight()" class="w-full py-5 bg-indigo-600 rounded-2xl font-black uppercase italic text-white hover:bg-indigo-500 transition-all shadow-xl">Back this Station</button>
+        <div class="absolute inset-0 bg-black/95 backdrop-blur-3xl" onclick="toggleModal('insightModal', false)"></div>
+        <div class="relative w-full max-w-2xl glass-panel rounded-[3.5rem] p-10 md:p-16 shadow-2xl overflow-y-auto max-h-[90vh]">
+            <button onclick="toggleModal('insightModal', false)" class="absolute top-10 right-10 text-slate-500 hover:text-white transition-colors"><i data-lucide="x"></i></button>
+            <div id="insightIcon" class="mb-10 w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center border border-white/5 text-indigo-400"></div>
+            <h3 id="insightTitle" class="text-5xl font-black uppercase italic mb-8 text-white tracking-tighter leading-none"></h3>
+            <div id="insightContent" class="text-slate-300 leading-relaxed font-light mb-12 space-y-8 text-left text-sm italic"></div>
+            <button onclick="investFromInsight()" class="w-full py-6 bg-indigo-600 rounded-full font-black uppercase italic text-xl text-white hover:bg-indigo-500 transition-all shadow-xl">Back this Station</button>
         </div>
     </div>
 
-    <!-- AI Modal -->
     <div id="aiModal" class="modal">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="toggleModal('aiModal', false)"></div>
-        <div class="relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-2xl max-h-[80vh] overflow-y-auto text-white text-left">
-            <button onclick="toggleModal('aiModal', false)" class="absolute top-6 right-6 text-slate-500 hover:text-white transition-colors"><i data-lucide="x"></i></button>
-            <div class="flex items-center gap-3 mb-6">
-                <div class="p-2 bg-indigo-500 rounded-lg text-white"><i data-lucide="sparkles"></i></div>
-                <h3 class="text-2xl font-black uppercase italic">Motherboard Insight</h3>
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-3xl" onclick="toggleModal('aiModal', false)"></div>
+        <div class="relative w-full max-w-2xl glass-panel rounded-[3.5rem] p-12 md:p-16 border border-white/5 shadow-2xl max-h-[85vh] overflow-y-auto text-white text-left">
+            <button onclick="toggleModal('aiModal', false)" class="absolute top-10 right-10 text-slate-500 hover:text-white transition-colors"><i data-lucide="x"></i></button>
+            <div class="flex items-center gap-4 mb-10 text-left">
+                <div class="p-3 bg-indigo-600 rounded-2xl text-white shadow-[0_0_20px_rgba(99,102,241,0.5)]"><i data-lucide="cpu" class="w-6 h-6"></i></div>
+                <h3 class="text-3xl font-black uppercase italic tracking-tighter">OS Intelligence</h3>
             </div>
-            <div id="aiModalContent" class="text-slate-300 whitespace-pre-wrap leading-relaxed font-light">Processing...</div>
-            <button onclick="toggleModal('aiModal', false)" class="mt-8 w-full py-4 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-bold transition-all text-white">Return to Console</button>
+            <div id="aiModalContent" class="mono text-[11px] text-indigo-200 whitespace-pre-wrap leading-loose">Analyzing...</div>
+            <button onclick="toggleModal('aiModal', false)" class="mt-12 w-full py-5 bg-white text-black rounded-full font-black uppercase text-[10px] tracking-widest transition-all">Clear TERMINAL</button>
         </div>
     </div>
 
-    <!-- Scripts -->
     <script>
-        const apiKey = ""; // Set your Gemini key here
+        const apiKey = ""; 
 
-        function refreshIcons() {
-            lucide.createIcons();
-        }
+        function refreshIcons() { lucide.createIcons(); }
 
         const ventures = [
-            {
-                id: "launchpad",
-                title: "Venture Launchpad",
-                icon: "sparkles",
-                color: "indigo",
-                problem: "Ideas dying due to lack of initial funding and infrastructure.",
-                why: "We provide financial support and motherboard infrastructure for vetted ideas.",
-                text: "The Launchpad turns external ideas into operational realities. If you have a business vision but lack the capital, we back you financially and help you scale in exchange for equity nodes."
-            },
-            {
-                id: "transport",
-                title: "Unified Transport",
-                icon: "map",
-                color: "indigo",
-                problem: "Inefficiency in urban transport (formal and informal).",
-                why: "Designing for how cities move. One live system for all transit types.",
-                text: "Integrating buses, taxis, and local transit into one live map. Commuters see real-time data. Revenue from system fees and licensing."
-            },
-            {
-                id: "rent",
-                title: "Rent Support Net",
-                icon: "key",
-                color: "purple",
-                problem: "High upfront rent demands creating housing barriers.",
-                why: "Predictable repayments for tenants and zero vacancy risk for landlords.",
-                text: "Structured support to help tenants secure properties without lump-sum payments. Revenue from structured repayment premiums."
-            },
-            {
-                id: "gas",
-                title: "Waste-to-Gas",
-                icon: "flame",
-                color: "green",
-                problem: "High gas costs and unmanaged urban food waste.",
-                why: "Cheaper energy and cleaner cities via waste transformation.",
-                text: "Converting city food waste into affordable cooking gas. Revenue from sales and waste contracts."
-            },
-            {
-                id: "agents",
-                title: "Verified Agents",
-                icon: "user-check",
-                color: "blue",
-                problem: "Trust deficit in informal rental and insurance markets.",
-                why: "Verification-first approach in high-risk sectors.",
-                text: "Trust platform for connecting users to verified agents. Revenue from commissions and verification fees."
-            },
-            {
-                id: "navigation",
-                title: "Indoor Navigation",
-                icon: "locate",
-                color: "pink",
-                problem: "Shoppers getting lost; owners lacking movement data.",
-                why: "Increases sales efficiency and customer satisfaction.",
-                text: "Indoor tracking for large stores. Revenue from B2B data insights."
-            },
-            {
-                id: "convenience",
-                title: "On-Site Office",
-                icon: "package",
-                color: "orange",
-                text: "Everyday errands delivered to offices. Employers gain productivity.",
-                problem: "Time loss during work hours for basic errands.",
-                why: "Employers pay for productivity gains; workers pay for time."
-            },
-            {
-                id: "loss",
-                title: "Loss Prevention AI",
-                icon: "bar-chart",
-                color: "red",
-                text: "Detecting revenue leakages in retail using existing tools.",
-                problem: "Hidden revenue losses in hospitality and retail.",
-                why: "Insight-driven accountability over simple surveillance."
-            },
-            {
-                id: "buyer",
-                title: "Buyer-Driven Shop",
-                icon: "shopping-cart",
-                color: "teal",
-                text: "E-commerce where buyers state needs and sellers compete.",
-                problem: "Inefficient product listings and fixed-price mismatches.",
-                why: "Matches real-world negotiation-based market behavior."
-            },
-            {
-                id: "wash",
-                title: "Mobile Eco-Care",
-                icon: "zap",
-                color: "sky",
-                text: "Sustainable mobile car care at your home or office.",
-                problem: "Inconvenient and wasteful car washing systems.",
-                why: "Convenience + Zero travel time + Sustainability."
-            },
-            {
-                id: "lab",
-                title: "Future Systems Lab",
-                icon: "microscope",
-                color: "indigo",
-                text: "Pipeline for energy and infrastructure smart-city solutions.",
-                problem: "Cities growing faster than support systems can scale.",
-                why: "Long-term infrastructure relevance and urban stability."
-            }
+            { id: "lp", title: "Launchpad Node", code: "NODE_LP_01", img: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=800&auto=format&fit=crop", icon: "rocket", color: "indigo", problem: "Ideas dying due to lack of funding.", why: "Financial support and tech scaffolding.", text: "We take external visions and support them with capital and operational infrastructure." },
+            { id: "tx", title: "Unified Transport", code: "NODE_TX_02", img: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=800&auto=format&fit=crop", icon: "map", color: "indigo", problem: "Transit inefficiency.", why: "Designing for how cities actually move.", text: "A digital hub integrating formal/informal transit in one system." },
+            { id: "re", title: "Rent Support", code: "NODE_RE_03", img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800&auto=format&fit=crop", icon: "key", color: "purple", problem: "Lump-sum rent demands.", why: "Predictable premiums; zero vacancy.", text: "Algorithmic rent support eliminating high entry barriers." },
+            { id: "en", title: "Waste-to-Energy", code: "NODE_EN_04", img: "https://images.unsplash.com/photo-1518005020251-58296d97c1ff?q=80&w=800&auto=format&fit=crop", icon: "flame", color: "green", problem: "Fuel cost; unmanaged waste.", why: "Cleaner cities; energy independence.", text: "Converting biomass into cooking gas via molecular conversion." },
+            { id: "tr", title: "Verified Agent Net", code: "NODE_TR_05", img: "https://images.unsplash.com/photo-1521791136064-7986c2959443?q=80&w=800&auto=format&fit=crop", icon: "user-check", color: "blue", problem: "Informal market fraud.", why: "Verification-first protocol.", text: "Trust architecture connecting users to verified sub-nodes." },
+            { id: "nav", title: "Smart Navigation", code: "NODE_NAV_06", img: "https://images.unsplash.com/photo-1569336415962-a4bd9f6dfc0f?q=80&w=800&auto=format&fit=crop", icon: "locate", color: "pink", problem: "Lost mall shoppers.", why: "Enhances sales and floor data.", text: "Precision indoor tracking system for malls." },
+            { id: "sr", title: "Office Errand Node", code: "NODE_SR_07", img: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=800&auto=format&fit=crop", icon: "package", color: "orange", text: "Human capital preservation via workstation-delivery.", problem: "Erran-waste during hours.", why: "Corporations pay for time." },
+            { id: "ai", title: "Retail Loss AI", code: "NODE_AI_08", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?q=80&w=800&auto=format&fit=crop", icon: "bar-chart-2", color: "red", text: "Algorithmic revenue leakage detection.", problem: "Retail revenue drain.", why: "Accountability-first protocol." },
+            { id: "cm", title: "Buyer-Driven Net", code: "NODE_CM_09", img: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=800&auto=format&fit=crop", icon: "shopping-cart", color: "teal", text: "Inverted bid commerce.", problem: "Inefficient static listings.", why: "Negotiation market match." },
+            { id: "ec", title: "Mobile Eco-Care", code: "NODE_EC_10", img: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=800&auto=format&fit=crop", icon: "droplet", color: "sky", text: "Sustainable car care sub-station.", problem: "Wasteful car washes.", why: "Ultra-low water footprint." },
+            { id: "lb", title: "Infrastructure Lab", code: "NODE_LB_11", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop", icon: "cpu", color: "indigo", text: "Urban energy protocols.", problem: "Unstable urban foundations.", why: "Long-term Motherboard stability." }
         ];
+
+        function spawnCrawler() {
+            const layer = document.getElementById('crawler-layer');
+            const isVertical = Math.random() > 0.5;
+            const crawler = document.createElement('div');
+            crawler.className = 'data-crawler' + (isVertical ? ' vertical' : '');
+            if(isVertical) {
+                crawler.style.left = (Math.floor(Math.random() * 25) * 50) + 'px';
+                crawler.style.animation = `crawl-v ${Math.random() * 8 + 6}s linear infinite`;
+            } else {
+                crawler.style.top = (Math.floor(Math.random() * 25) * 50) + 'px';
+                crawler.style.animation = `crawl-h ${Math.random() * 8 + 6}s linear infinite`;
+            }
+            layer.appendChild(crawler);
+            setTimeout(() => crawler.remove(), 14000);
+        }
+
+        function handleImgError(img) {
+            img.src = "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop";
+            img.style.opacity = "0.4";
+        }
 
         window.addEventListener('DOMContentLoaded', () => {
             const ventureGrid = document.getElementById('venture-grid');
             const regVentureSelect = document.getElementById('regVenture');
 
-            regVentureSelect.innerHTML = `
-                <option value="General Donation/Fund">Impact Fund (Donation)</option>
-                <option value="Submit New Idea (Launchpad)">New Idea (Launchpad)</option>
-                <option value="Global Motherboard Pool">Global Pool (Investment)</option>
-                ` + ventures.map(v => `<option value="${v.title}">${v.title}</option>`).join('');
+            if(regVentureSelect) {
+                regVentureSelect.innerHTML = `
+                    <option value="System Support">System Support (Donation)</option>
+                    <option value="Submit New Idea">New Vision (Launchpad)</option>
+                    <option value="Global Node Pool">Global Node (Investment)</option>
+                    ` + ventures.map(v => `<option value="${v.title}">${v.title}</option>`).join('');
+            }
 
-            ventureGrid.innerHTML = ventures.map(v => `
-                <div class="venture-card group relative bg-slate-900 border border-white/10 rounded-[2.5rem] p-10 overflow-hidden cursor-pointer h-[420px] flex flex-col justify-between shadow-xl" onclick="showVenture('${v.id}')">
-                    <div class="relative z-10">
-                        <div class="w-16 h-16 bg-${v.color}-500/10 border border-${v.color}-500/20 rounded-2xl flex items-center justify-center mb-6">
-                            <i data-lucide="${v.icon}" class="text-${v.color}-500 w-8 h-8"></i>
+            if(ventureGrid) {
+                ventureGrid.innerHTML = ventures.map(v => `
+                    <div class="venture-card group relative rounded-[2.5rem] overflow-hidden cursor-pointer flex flex-col shadow-lg" onclick="showVenture('${v.id}')">
+                        <div class="venture-image-container">
+                            <div class="viewfinder-corner v-tl"></div><div class="viewfinder-corner v-tr"></div>
+                            <div class="viewfinder-corner v-bl"></div><div class="viewfinder-corner v-br"></div>
+                            <img src="${v.img}" class="venture-img" alt="${v.title}" onerror="handleImgError(this)">
+                            <div class="absolute top-4 left-4 flex items-center gap-2 px-2 py-1 bg-black/60 rounded text-[7px] mono uppercase text-white backdrop-blur-sm">
+                                <span class="node-pulse"></span> live_feed_${v.code}
+                            </div>
                         </div>
-                        <h4 class="text-2xl font-black uppercase italic mb-4 leading-tight text-white">${v.title}</h4>
-                        <p class="text-slate-400 text-sm font-light leading-relaxed line-clamp-3">${v.problem}</p>
+                        <div class="p-10 flex flex-col justify-between flex-grow">
+                            <div class="relative z-10 text-left">
+                                <div class="flex justify-between items-start mb-6">
+                                    <h4 class="text-2xl font-black uppercase italic leading-tight text-white tracking-tighter">${v.title}</h4>
+                                    <span class="mono text-[7px] text-slate-700 tracking-widest">${v.code}</span>
+                                </div>
+                                <p class="text-slate-600 text-[11px] font-light leading-relaxed italic line-clamp-2">${v.problem}</p>
+                            </div>
+                            <div class="flex justify-between items-center relative z-10 pt-6 border-t border-white/5 mt-auto">
+                                <div class="text-indigo-400 text-[9px] font-black uppercase tracking-widest group-hover:text-white transition-colors">Node Insight <i data-lucide="arrow-right" class="w-4 h-4 inline"></i></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex justify-between items-center relative z-10">
-                        <span class="px-4 py-1.5 bg-white/5 text-slate-400 rounded-full text-[9px] font-black uppercase tracking-widest border border-white/5">Sub-Station</span>
-                        <div class="text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2 group-hover:text-indigo-400 transition-colors">Insight <i data-lucide="chevron-right" class="w-4 h-4"></i></div>
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-br from-indigo-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                </div>
-            `).join('');
+                `).join('');
+            }
 
             refreshIcons();
 
@@ -521,29 +624,29 @@
                 es.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
             }, { threshold: 0.1 });
             document.querySelectorAll('.fade-in-section').forEach(s => obs.observe(s));
-        });
 
-        let currentActiveVentureTitle = "";
+            const startTime = Date.now();
+            setInterval(() => {
+                const diff = Date.now() - startTime;
+                const h = Math.floor(diff / 3600000).toString().padStart(2, '0');
+                const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+                const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+                if(document.getElementById('system-uptime')) document.getElementById('system-uptime').innerText = `${h}:${m}:${s}`;
+                if(document.getElementById('footer-time')) document.getElementById('footer-time').innerText = new Date().toLocaleTimeString() + ' UTC';
+                if(document.getElementById('network-load')) document.getElementById('network-load').innerText = `${Math.floor(Math.random()*6+12)}%`;
+                if(Math.random() > 0.8) spawnCrawler();
+            }, 1000);
+        });
 
         window.showVenture = (id) => {
             const v = ventures.find(x => x.id === id);
-            currentActiveVentureTitle = v.title;
             document.getElementById('insightTitle').innerText = v.title;
-            document.getElementById('insightIcon').innerHTML = `<i data-lucide="${v.icon}" class="text-${v.color}-400 w-8 h-8"></i>`;
+            document.getElementById('insightIcon').innerHTML = `<i data-lucide="${v.icon}" class="w-8 h-8"></i>`;
             document.getElementById('insightContent').innerHTML = `
-                <div class="space-y-6 text-white text-left">
-                    <div>
-                        <p class="text-xs font-black uppercase text-indigo-500 mb-2">The Mission</p>
-                        <p class="text-lg font-medium">${v.problem}</p>
-                    </div>
-                    <div>
-                        <p class="text-xs font-black uppercase text-indigo-500 mb-2">Operational Insight</p>
-                        <p class="text-slate-400 leading-relaxed">${v.text}</p>
-                    </div>
-                    <div>
-                        <p class="text-xs font-black uppercase text-indigo-500 mb-2">The Winning Edge</p>
-                        <p class="text-indigo-200 italic font-medium">${v.why}</p>
-                    </div>
+                <div class="space-y-6">
+                    <div><p class="mono text-[9px] uppercase text-indigo-500 mb-2">Protocol</p><p class="text-xl text-white font-black uppercase italic text-left">${v.problem}</p></div>
+                    <div><p class="mono text-[9px] uppercase text-indigo-500 mb-2">Insight</p><p class="text-slate-400 leading-loose text-left">${v.text}</p></div>
+                    <div><p class="mono text-[9px] uppercase text-indigo-500 mb-2">Edge</p><p class="text-indigo-200 font-bold text-left">${v.why}</p></div>
                 </div>
             `;
             refreshIcons();
@@ -552,88 +655,58 @@
 
         window.investFromInsight = () => {
             toggleModal('insightModal', false);
-            document.getElementById('regVenture').value = currentActiveVentureTitle;
+            document.getElementById('regVenture').value = document.getElementById('insightTitle').innerText;
             toggleModal('registerModal', true);
         };
 
         window.toggleModal = (id, show, type = '') => {
             const m = document.getElementById(id);
-            m.classList.toggle('active', show);
+            if(m) m.classList.toggle('active', show);
             if(id === 'registerModal' && type === 'donation') {
-                document.getElementById('modalHeaderTitle').innerText = "Fund the Mission";
-                document.getElementById('regVenture').value = "General Donation/Fund";
+                document.getElementById('modalHeaderTitle').innerText = "Mission Support";
+                document.getElementById('regVenture').value = "System Support";
             } else if (id === 'registerModal') {
-                document.getElementById('modalHeaderTitle').innerText = "Connect Node";
+                document.getElementById('modalHeaderTitle').innerText = "Node Connection";
             }
             refreshIcons();
         };
 
         const hs = document.getElementById('hours-slider');
         const cs = document.getElementById('capital-slider');
-        const hd = document.getElementById('hours-display');
-        const cd = document.getElementById('capital-display');
         const ores = document.getElementById('ownership-result');
-        const rres = document.getElementById('rep-result');
+        const tierDisplay = document.getElementById('node-tier-display');
 
         function updateCalc() {
             const h = parseInt(hs.value);
             const c = parseInt(cs.value);
-            if(hd) hd.innerText = `${h} Hours`;
-            if(cd) cd.innerText = `$${c}`;
-            if(ores) ores.innerText = `${((h * 0.05) + (c / 5000)).toFixed(3)}%`;
-            if(rres) rres.innerText = `+${Math.round(h * 2.5)}`;
+            document.getElementById('hours-display').innerText = h;
+            document.getElementById('capital-display').innerText = c;
+            const totalPercent = (h * 0.05) + (c / 5000);
+            ores.innerText = `${totalPercent.toFixed(3)}%`;
+            document.getElementById('rep-result').innerText = `+${Math.round(h * 2.5)}`;
+            let tier = "VISITOR_NODE_V0";
+            if (totalPercent > 2) tier = "MASTER_CORE_NODE";
+            else if (totalPercent > 1) tier = "RELAY_MASTER_NODE";
+            else if (totalPercent > 0.5) tier = "CORE_PARTICIPANT";
+            else if (totalPercent > 0.1) tier = "RELAY_STATION";
+            tierDisplay.innerText = tier;
         }
-        hs.addEventListener('input', updateCalc);
-        cs.addEventListener('input', updateCalc);
+        if(hs) hs.addEventListener('input', updateCalc);
+        if(cs) cs.addEventListener('input', updateCalc);
         updateCalc();
 
         document.getElementById('regForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const name = document.getElementById('regName').value;
-            const venture = document.getElementById('regVenture').value;
-            const desc = document.getElementById('regDesc').value;
-            const msg = encodeURIComponent(`Spark Operations Console:\nName: ${name}\nNode: ${venture}\nMessage: ${desc}`);
-            const url = `https://wa.me/233551389510?text=${msg}`;
+            const msg = encodeURIComponent(`Spark Operations:\nID: ${document.getElementById('regName').value}\nTarget: ${document.getElementById('regVenture').value}\nLog: ${document.getElementById('regDesc').value}`);
             document.getElementById('regContent').classList.add('hidden');
             document.getElementById('regSuccess').classList.remove('hidden');
-            setTimeout(() => { window.open(url, '_blank'); }, 1500);
+            setTimeout(() => { window.open(`https://wa.me/233551389510?text=${msg}`, '_blank'); }, 1500);
         });
-
-        window.handleAI = async (type) => {
-            const input = document.getElementById('aiInput').value;
-            if (!input) return;
-            const content = document.getElementById('aiModalContent');
-            toggleModal('aiModal', true);
-            content.innerText = "Querying Spark Operations Motherboard...";
-            if (!apiKey) {
-                content.innerText = "Error: Motherboard API Key missing. Please configure VITE_GEMINI_API_KEY.";
-                return;
-            }
-            const prompt = type === 'forecaster' 
-                ? `You are Spark Operations AI. Analyze this input: ${input}. Recommend the best venture pool or fund from our 11 categories.`
-                : `Architect this specific idea into the Spark ecosystem: ${input}.`;
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-                });
-                const data = await response.json();
-                content.innerText = data.candidates?.[0]?.content?.parts?.[0]?.text || "No data received.";
-            } catch (err) {
-                content.innerText = "Interference detected. Please retry.";
-            }
-        };
 
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('bg-black/80', 'backdrop-blur-xl', 'border-b', 'border-white/5', 'py-4');
-                nav.classList.remove('py-8');
-            } else {
-                nav.classList.remove('bg-black/80', 'backdrop-blur-xl', 'border-b', 'border-white/5', 'py-4');
-                nav.classList.add('py-8');
-            }
+            if (window.scrollY > 50) nav.classList.add('bg-black/90', 'backdrop-blur-xl', 'py-4');
+            else nav.classList.remove('bg-black/90', 'backdrop-blur-xl', 'py-4');
         });
     </script>
 </body>
