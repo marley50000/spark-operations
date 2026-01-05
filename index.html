@@ -84,7 +84,6 @@
             background: rgba(99, 102, 241, 0.1);
         }
 
-        /* DYNAMIC GRID */
         .bg-grid {
             background-image: 
                 linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
@@ -345,6 +344,24 @@
             from { transform: translateX(50px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
+
+        /* Ecosystem Card Shrinking */
+        .compact-asset-card {
+            padding: 1.5rem !important;
+            border-radius: 2rem !important;
+        }
+        .compact-asset-card i {
+            width: 1.5rem !important;
+            height: 1.5rem !important;
+        }
+        .compact-asset-card h4 {
+            font-size: 1.1rem !important;
+            margin-bottom: 0.25rem !important;
+        }
+        .compact-asset-card p {
+            font-size: 0.7rem !important;
+            line-height: 1.2 !important;
+        }
     </style>
 </head>
 <body>
@@ -358,8 +375,8 @@
     <div id="system-toast"></div>
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-[100] transition-all duration-500 py-8 px-6 text-left">
-        <div class="max-w-7xl mx-auto flex justify-between items-center text-left">
+    <nav id="navbar" class="fixed w-full z-[100] transition-all duration-500 py-6 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
                 <div class="flex flex-col text-left">
                     <span class="font-black text-2xl tracking-tighter uppercase italic leading-none group-hover:text-indigo-400 transition-colors text-white">Spark</span>
@@ -380,11 +397,11 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="relative pt-48 pb-20 px-6 z-10 text-center overflow-hidden">
+    <section id="hero" class="relative pt-40 pb-16 px-6 z-10 text-center overflow-hidden">
         <div class="absolute inset-0 bg-grid pointer-events-none text-center"></div>
         <div class="max-w-6xl mx-auto flex flex-col items-center relative z-20 text-center">
             
-            <div class="relative w-64 h-64 md:w-80 md:h-80 mb-12 flex items-center justify-center group opacity-90 hover:opacity-100 transition-opacity duration-700 text-center">
+            <div class="relative w-64 h-64 md:w-80 md:h-80 mb-10 flex items-center justify-center group opacity-90 hover:opacity-100 transition-opacity duration-700 text-center text-center">
                 <img src="https://iili.io/fww4QyB.png" alt="Spark Operations" class="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-105">
                 <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2.5 px-4 py-1.5 bg-black/60 rounded-full border border-white/5 backdrop-blur-md">
                     <span class="node-pulse"></span>
@@ -400,23 +417,23 @@
                     <span>Lead Architect: <span class="text-white font-bold">Spark Dzakpasu</span></span>
                 </div>
 
-                <span class="mono text-indigo-500/80 font-bold tracking-[0.4em] text-[9px] uppercase mb-6 block text-center">Unified Economic Operating System</span>
-                <h1 class="text-6xl md:text-[8rem] font-black tracking-tighter leading-[0.85] mb-12 uppercase italic text-white text-center">
+                <span class="mono text-indigo-500/80 font-bold tracking-[0.4em] text-[9px] uppercase mb-6 block text-center md:text-center">Unified Economic Operating System</span>
+                <h1 class="text-6xl md:text-[8rem] font-black tracking-tighter leading-[0.85] mb-12 uppercase italic text-white text-center md:text-center">
                     One Node. <br> <span class="gradient-text">Absolute</span> <br> Equity.
                 </h1>
                 
                 <div class="terminal-box rounded-2xl p-5 mb-14 text-left w-full max-w-lg mx-auto opacity-70 hover:opacity-100 transition-opacity text-left">
                     <div id="terminal-feed" class="mono text-[9px] text-indigo-400/60 leading-relaxed min-h-[40px] text-left">
                         > SYNCING SPARK_DZAKPASU_CORE... <br>
-                        > <span class="text-slate-500 text-left">STATIONS READY_</span><span class="cursor-blink"></span>
+                        > <span class="text-slate-500 text-left text-left">STATIONS READY_</span><span class="cursor-blink"></span>
                     </div>
                 </div>
 
-                <p class="text-xl md:text-2xl text-slate-500 max-w-3xl mx-auto mb-14 font-light leading-relaxed italic text-center text-center">
+                <p class="text-xl md:text-2xl text-slate-500 max-w-3xl mx-auto mb-14 font-light leading-relaxed italic text-center md:text-center text-center">
                     Bridging the gap between human ambition and operational reality. BACK sub-stations, PROPOSE visions, or FUND progress.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-6 justify-center items-center text-center">
-                    <a href="#portfolio" class="px-14 py-5 bg-white text-black rounded-full font-black text-lg flex items-center gap-3 hover:scale-105 transition-all shadow-xl">
+                    <a href="#portfolio" class="px-14 py-5 bg-white text-black rounded-full font-black text-lg flex items-center gap-3 hover:scale-105 transition-all shadow-xl text-center">
                         Explore Stations <i data-lucide="layers" class="w-5 h-5"></i>
                     </a>
                     <button onclick="toggleModal('donationModal', true)" class="px-14 py-5 bg-white/5 border border-white/10 text-white rounded-full font-black text-lg hover:bg-white/10 transition-all text-center">
@@ -427,21 +444,21 @@
         </div>
     </section>
 
-    <!-- Topology Map -->
+    <!-- Network Topology -->
     <section class="py-24 px-6 fade-in-section bg-black/40 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16 text-left">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16 text-left text-left">
             <div class="md:w-1/2 text-left">
-                <div class="inline-flex items-center gap-3 px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-8 text-left">
+                <div class="inline-flex items-center gap-3 px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-8 text-left text-left">
                     <i data-lucide="network" class="text-indigo-400 w-4 h-4"></i>
-                    <span class="mono text-[9px] font-black uppercase tracking-widest text-indigo-400 text-left">System Topology</span>
+                    <span class="mono text-[9px] font-black uppercase tracking-widest text-indigo-400 text-left text-left">System Topology</span>
                 </div>
                 <h2 class="text-5xl font-black uppercase italic tracking-tighter text-white mb-6 text-left">The Network <br> <span class="text-indigo-600">Architecture.</span></h2>
-                <p class="text-slate-400 font-light italic leading-relaxed mb-10 max-w-md text-left text-left">
+                <p class="text-slate-400 font-light italic leading-relaxed mb-10 max-w-md text-left text-left text-left">
                     Every station is a decentralized node linked to the Spark Core. Data, revenue, and equity flow through a verified handshake protocol.
                 </p>
             </div>
-            <div class="md:w-1/2 relative flex justify-center text-center">
-                <svg width="350" height="350" viewBox="0 0 400 400" class="opacity-40 text-center">
+            <div class="md:w-1/2 relative flex justify-center text-center text-center">
+                <svg width="300" height="300" viewBox="0 0 400 400" class="opacity-40 text-center text-center">
                     <circle cx="200" cy="200" r="10" fill="#6366f1" class="animate-pulse" />
                     <circle cx="200" cy="200" r="30" stroke="#6366f1" fill="none" opacity="0.2" />
                     <g stroke="#6366f1" stroke-width="1" opacity="0.3" class="topology-line">
@@ -465,56 +482,56 @@
 
     <!-- Venture Portfolio -->
     <section id="portfolio" class="py-32 px-6 fade-in-section">
-        <div class="max-w-7xl mx-auto text-left text-left">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 text-left">
+        <div class="max-w-7xl mx-auto text-left text-left text-left">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 text-left text-left">
                 <div class="max-w-2xl text-left">
-                    <div class="inline-flex items-center gap-3 px-4 py-2 bg-indigo-500/5 border border-white/5 rounded-full mb-8 text-left">
-                        <i data-lucide="layers" class="text-indigo-500 w-4 h-4"></i>
-                        <span class="mono text-[8px] font-bold uppercase tracking-widest text-slate-500 text-left">Mother-Node Sub-Stations</span>
+                    <div class="inline-flex items-center gap-3 px-4 py-2 bg-indigo-500/5 border border-white/5 rounded-full mb-8 text-left text-left">
+                        <i data-lucide="layers" class="text-indigo-500 w-4 h-4 text-left"></i>
+                        <span class="mono text-[8px] font-bold uppercase tracking-widest text-slate-500 text-left text-left">Mother-Node Sub-Stations</span>
                     </div>
-                    <h2 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-white text-left">Venture <br><span class="text-indigo-600 text-left">Nodes.</span></h2>
+                    <h2 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-white text-left text-left text-left">Venture <br><span class="text-indigo-600 text-left text-left">Nodes.</span></h2>
                 </div>
             </div>
-            <div id="venture-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-white text-left"></div>
+            <div id="venture-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-white text-left text-left"></div>
         </div>
     </section>
 
     <!-- Mission Dashboard -->
-    <section id="mission" class="py-40 px-6 relative overflow-hidden bg-[#050508] border-y border-white/5 fade-in-section text-left">
-        <div class="max-w-7xl mx-auto relative z-10 text-white text-left">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center text-left">
-                <div class="lg:col-span-5 architect-perspective text-left">
-                    <div id="architect-card" class="architect-card rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl relative text-left">
-                        <div class="scan-line-v text-left text-left"></div>
-                        <div class="architect-hud-overlay text-left"></div>
+    <section id="mission" class="py-40 px-6 relative overflow-hidden bg-[#050508] border-y border-white/5 fade-in-section text-left text-left">
+        <div class="max-w-7xl mx-auto relative z-10 text-white text-left text-left text-left">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center text-left text-left text-left">
+                <div class="lg:col-span-5 architect-perspective text-left text-left text-left">
+                    <div id="architect-card" class="architect-card rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl relative text-left text-left text-left">
+                        <div class="scan-line-v text-left text-left text-left text-left"></div>
+                        <div class="architect-hud-overlay text-left text-left text-left"></div>
                         <div class="hud-element top-10 left-10 w-8 h-8 border-t-2 border-l-2 border-indigo-500"></div>
                         <div class="hud-element top-10 right-10 w-8 h-8 border-t-2 border-r-2 border-indigo-500"></div>
                         <div class="hud-element bottom-10 left-10 w-8 h-8 border-b-2 border-l-2 border-indigo-500"></div>
                         <div class="hud-element bottom-10 right-10 w-8 h-8 border-b-2 border-r-2 border-indigo-500"></div>
-                        <img src="https://iili.io/fjHhAeS.jpg" alt="Founder" class="w-full aspect-[4/5] object-cover block">
-                        <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black via-black/40 to-transparent z-30 text-left">
-                            <p class="mono text-[9px] font-bold text-indigo-500 uppercase tracking-widest mb-1 text-left text-left text-left">Lead Architect</p>
-                            <p class="text-3xl font-black italic uppercase text-white tracking-tighter text-left text-left">Spark Dzakpasu</p>
-                            <div class="flex items-center gap-2 mt-2 text-left">
+                        <img src="https://iili.io/fjHhAeS.jpg" alt="Founder" class="w-full aspect-[4/5] object-cover block text-left">
+                        <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black via-black/40 to-transparent z-30 text-left text-left text-left">
+                            <p class="mono text-[9px] font-bold text-indigo-500 uppercase tracking-widest mb-1 text-left text-left text-left text-left text-left">Lead Architect</p>
+                            <p class="text-3xl font-black italic uppercase text-white tracking-tighter text-left text-left text-left text-left text-left text-left">Spark Dzakpasu</p>
+                            <div class="flex items-center gap-2 mt-2 text-left text-left text-left">
                                 <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-                                <span class="mono text-[7px] text-slate-400 uppercase tracking-widest">Neural Link: Established</span>
+                                <span class="mono text-[7px] text-slate-400 uppercase tracking-widest text-left text-left text-left">Neural Link: Established</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="lg:col-span-7 text-left text-left text-left">
-                    <h3 class="text-4xl md:text-6xl font-black uppercase italic mb-10 leading-tight text-left">Bridging <br> <span class="text-indigo-500 text-left text-left">Dream & Data.</span></h3>
-                    <p class="text-2xl md:text-3xl font-light italic leading-snug text-slate-400 mb-12 border-l-2 border-indigo-600/30 pl-8 text-left">
+                <div class="lg:col-span-7 text-left text-left text-left text-left text-left text-left">
+                    <h3 class="text-4xl md:text-6xl font-black uppercase italic mb-10 leading-tight text-left text-left text-left text-left text-left">Bridging <br> <span class="text-indigo-500 text-left text-left text-left text-left text-left text-left text-left text-left text-left">Dream & Data.</span></h3>
+                    <p class="text-2xl md:text-3xl font-light italic leading-snug text-slate-400 mb-12 border-l-2 border-indigo-600/30 pl-8 text-left text-left text-left text-left text-left text-left">
                         "Spark Operations provides the <strong>capital and technical scaffolding</strong> to turn individual grit into industrial reality. We invest in people, ideas, and the city."
                     </p>
-                    <div class="grid grid-cols-2 gap-8 text-left">
+                    <div class="grid grid-cols-2 gap-8 text-left text-left text-left text-left text-left text-left">
                         <div>
-                            <p class="mono text-[9px] text-indigo-500 uppercase mb-2 text-left text-left">01. Liquidity Injection</p>
-                            <p class="text-slate-500 text-xs italic text-left text-left text-left">Direct funding models that eliminate standard entry barriers.</p>
+                            <p class="mono text-[9px] text-indigo-500 uppercase mb-2 text-left text-left text-left text-left text-left text-left text-left">01. Liquidity Injection</p>
+                            <p class="text-slate-500 text-xs italic text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Direct funding models that eliminate standard entry barriers.</p>
                         </div>
                         <div>
-                            <p class="mono text-[9px] text-indigo-500 uppercase mb-2 text-left text-left">02. Node Scaling</p>
-                            <p class="text-slate-500 text-xs italic text-left text-left text-left">Shared technical infrastructure to reduce sub-station friction.</p>
+                            <p class="mono text-[9px] text-indigo-500 uppercase mb-2 text-left text-left text-left text-left text-left text-left text-left">02. Node Scaling</p>
+                            <p class="text-slate-500 text-xs italic text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Shared technical infrastructure to reduce sub-station friction.</p>
                         </div>
                     </div>
                 </div>
@@ -523,32 +540,32 @@
     </section>
 
     <!-- IMPACT FUND -->
-    <section id="impact" class="py-32 px-6 fade-in-section text-left">
-        <div class="max-w-7xl mx-auto text-left">
-            <div class="glass-panel rounded-[4rem] p-12 md:p-20 overflow-hidden relative text-left">
-                <div class="absolute top-0 right-0 p-12 opacity-5"><i data-lucide="heart" class="w-64 h-64 text-indigo-500"></i></div>
-                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center text-left text-white text-left">
-                    <div class="text-left text-left text-left text-left">
-                        <div class="inline-flex items-center gap-3 px-4 py-2 bg-indigo-500/10 border border-indigo-500/10 rounded-full mb-8 text-left">
-                            <i data-lucide="activity" class="text-indigo-400 w-4 h-4 text-left"></i>
-                            <span class="mono text-[9px] font-black uppercase tracking-widest text-indigo-400 text-left">Social Yield Protocol</span>
+    <section id="impact" class="py-32 px-6 fade-in-section text-left text-left text-left">
+        <div class="max-w-7xl mx-auto text-left text-left text-left text-left">
+            <div class="glass-panel rounded-[4rem] p-12 md:p-20 overflow-hidden relative text-left text-left text-left">
+                <div class="absolute top-0 right-0 p-12 opacity-5 text-left text-left"><i data-lucide="heart" class="w-64 h-64 text-indigo-500"></i></div>
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center text-left text-white text-left text-left text-left text-left">
+                    <div class="text-left text-left text-left text-left text-left text-left text-left">
+                        <div class="inline-flex items-center gap-3 px-4 py-2 bg-indigo-500/10 border border-indigo-500/10 rounded-full mb-8 text-left text-left text-left text-left">
+                            <i data-lucide="activity" class="text-indigo-400 w-4 h-4 text-left text-left text-left text-left"></i>
+                            <span class="mono text-[9px] font-black uppercase tracking-widest text-indigo-400 text-left text-left text-left text-left text-left text-left">Social Yield Protocol</span>
                         </div>
-                        <h2 class="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-white mb-10 text-left">Impact <br><span class="text-indigo-500 text-left text-left">Fund.</span></h2>
-                        <p class="text-xl text-slate-500 font-light italic leading-relaxed mb-10 max-w-lg text-left text-left text-left">
+                        <h2 class="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none text-white mb-10 text-left text-left text-left text-left text-left text-left text-left text-left">Impact <br><span class="text-indigo-500 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Fund.</span></h2>
+                        <p class="text-xl text-slate-500 font-light italic leading-relaxed mb-10 max-w-lg text-left text-left text-left text-left text-left text-left text-left text-left text-left">
                             We support urban projects that are mission-critical but don't follow a profit-first model. Subsidizing the life-blood of our cities.
                         </p>
-                        <button onclick="toggleModal('donationModal', true)" class="px-14 py-6 bg-indigo-600 text-white rounded-full font-black text-2xl uppercase italic hover:bg-indigo-500 transition-all text-left">
+                        <button onclick="toggleModal('donationModal', true)" class="px-14 py-6 bg-indigo-600 text-white rounded-full font-black text-2xl uppercase italic hover:bg-indigo-500 transition-all text-left text-left text-left text-left text-left text-left">
                             Donate to Fund
                         </button>
                     </div>
-                    <div class="grid grid-cols-2 gap-6 relative text-white text-center text-left md:text-center text-left text-left text-left">
-                        <div class="p-10 bg-black/40 border border-white/5 rounded-[3rem] text-center text-center">
-                            <div class="text-4xl font-black italic mb-2">100%</div>
-                            <p class="mono text-[7px] uppercase tracking-[0.3em] text-slate-600 text-center text-center">Allocation</p>
+                    <div class="grid grid-cols-2 gap-6 relative text-white text-center text-left md:text-center text-left text-left text-left text-left text-left text-left text-left text-left">
+                        <div class="p-10 bg-black/40 border border-white/5 rounded-[3rem] text-center text-center text-center text-center text-center">
+                            <div class="text-4xl font-black italic mb-2 text-center text-center">100%</div>
+                            <p class="mono text-[7px] uppercase tracking-[0.3em] text-slate-600 text-center text-center text-center">Allocation</p>
                         </div>
-                        <div class="p-10 bg-black/40 border border-white/5 rounded-[3rem] mt-12 text-center text-center text-center text-left">
-                            <div class="text-4xl font-black italic mb-2">$0</div>
-                            <p class="mono text-[7px] uppercase tracking-[0.3em] text-slate-600 text-center text-center">Fees</p>
+                        <div class="p-10 bg-black/40 border border-white/5 rounded-[3rem] mt-12 text-center text-center text-center text-left text-left text-left text-left">
+                            <div class="text-4xl font-black italic mb-2 text-center text-center text-center">$0</div>
+                            <p class="mono text-[7px] uppercase tracking-[0.3em] text-slate-600 text-center text-center text-center text-center text-center text-center text-center text-center">Fees</p>
                         </div>
                     </div>
                 </div>
@@ -557,92 +574,154 @@
     </section>
 
     <!-- Calculator Section -->
-    <section id="calculator" class="py-32 px-6 bg-white/[0.02] fade-in-section text-left">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center text-white text-left text-left text-left">
-            <div class="text-left text-left text-left text-left text-left">
-                <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter mb-8 text-left text-left text-left text-left">Node <br /><span class="text-indigo-500 underline decoration-1 underline-offset-8 text-left text-left text-left text-left">Mathematics.</span></h2>
-                <p class="text-xl text-slate-500 mb-12 font-light italic leading-relaxed text-left text-left text-left text-left text-left text-left text-left">Calculate your potential aggregated equity stake across the entire venture ecosystem.</p>
-                <div class="space-y-12 text-left text-left">
-                    <div class="space-y-4 text-left text-left text-left">
+    <section id="calculator" class="py-32 px-6 bg-white/[0.02] fade-in-section text-left text-left text-left text-left text-left text-left">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center text-white text-left text-left text-left text-left text-left text-left">
+            <div class="text-left text-left text-left text-left text-left text-left text-left">
+                <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter mb-8 text-left text-white text-left text-left text-left text-left text-left text-left text-left text-left text-left">Node <br /><span class="text-indigo-500 underline decoration-1 underline-offset-8 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Mathematics.</span></h2>
+                <p class="text-xl text-slate-500 mb-12 font-light italic leading-relaxed text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Calculate your potential aggregated equity stake across the entire venture ecosystem.</p>
+                <div class="space-y-12 text-left text-left text-left text-left text-left text-left">
+                    <div class="space-y-4 text-left text-left text-left text-left text-left text-left">
                         <div class="flex justify-between font-black uppercase text-[9px] tracking-widest text-slate-600 text-left text-left text-left text-left text-left">
                             <span>Contribution (Hours)</span>
-                            <span id="hours-display" class="text-indigo-400 font-bold text-left text-left text-left">20</span>
+                            <span id="hours-display" class="text-indigo-400 font-bold text-left text-left text-left text-left text-left text-left">20</span>
                         </div>
-                        <input type="range" id="hours-slider" min="1" max="80" value="20" class="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-indigo-600 text-left text-left">
+                        <input type="range" id="hours-slider" min="1" max="80" value="20" class="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-indigo-600 text-left text-left text-left text-left text-left">
                     </div>
-                    <div class="space-y-4 text-left text-left text-left text-left">
-                        <div class="flex justify-between font-black uppercase text-[9px] tracking-widest text-slate-600 text-left text-left text-left text-left text-left text-left text-left">
+                    <div class="space-y-4 text-left text-left text-left text-left text-left text-left text-left">
+                        <div class="flex justify-between font-black uppercase text-[9px] tracking-widest text-slate-600 text-left text-left text-left text-left text-left text-left text-left text-left text-left">
                             <span>Pooled Capital ($)</span>
-                            <span id="capital-display" class="text-indigo-400 font-bold text-left text-left text-left">500</span>
+                            <span id="capital-display" class="text-indigo-400 font-bold text-left text-left text-left text-left text-left text-left text-left text-left text-left">500</span>
                         </div>
-                        <input type="range" id="capital-slider" min="0" max="10000" step="100" value="500" class="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-indigo-600 text-left text-left">
+                        <input type="range" id="capital-slider" min="0" max="10000" step="100" value="500" class="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-indigo-600 text-left text-left text-left text-left text-left text-left text-left">
                     </div>
                 </div>
             </div>
-            <div class="bg-slate-900 border border-white/5 rounded-[4rem] p-12 text-center relative shadow-2xl text-center text-center text-center text-center">
-                <h3 class="text-lg font-black uppercase tracking-widest text-slate-600 mb-8 italic text-center">Projected Node Stake</h3>
-                <div id="ownership-result" class="text-7xl font-black italic text-white mb-6 text-center text-center">1.100%</div>
-                <div id="node-tier-display" class="mono text-indigo-400 text-[10px] font-bold uppercase tracking-[0.4em] mb-10 text-center text-center">RELAY_NODE_V1</div>
-                <div class="grid grid-cols-2 gap-4 text-left text-white text-center">
-                    <div class="p-6 bg-white/5 rounded-3xl border border-white/5 text-center">
-                        <p class="text-[9px] font-black uppercase text-slate-500 tracking-widest text-center text-center text-center text-center">Reputation</p>
-                        <p id="rep-result" class="text-2xl font-black text-white text-center text-center text-center">+50</p>
+            <div class="bg-slate-900 border border-white/5 rounded-[4rem] p-12 text-center relative shadow-2xl text-center text-center text-center text-center text-center text-center text-center">
+                <h3 class="text-lg font-black uppercase tracking-widest text-slate-600 mb-8 italic text-center text-center text-center text-center text-center text-center text-center text-center">Projected Node Stake</h3>
+                <div id="ownership-result" class="text-7xl font-black italic text-white mb-6 text-center text-center text-center text-center text-center text-center text-center text-center">1.100%</div>
+                <div id="node-tier-display" class="mono text-indigo-400 text-[10px] font-bold uppercase tracking-[0.4em] mb-10 text-center text-center text-center text-center text-center text-center text-center text-center text-center text-center">RELAY_NODE_V1</div>
+                <div class="grid grid-cols-2 gap-4 text-left text-white text-center text-center text-center text-center text-center text-center text-center text-center">
+                    <div class="p-6 bg-white/5 rounded-3xl border border-white/5 text-center text-center text-center text-center text-center">
+                        <p class="text-[9px] font-black uppercase text-slate-500 tracking-widest text-center text-center text-center text-center text-center text-center">Reputation</p>
+                        <p id="rep-result" class="text-2xl font-black text-white text-center text-center text-center text-center text-center text-center text-center text-center">+50</p>
                     </div>
-                    <div class="p-6 bg-white/5 rounded-3xl border border-white/5 text-green-500 text-center text-center">
-                        <p class="text-[9px] font-black uppercase text-slate-500 tracking-widest text-center text-center text-center">Node Status</p>
-                        <p class="text-2xl font-black italic text-center text-center text-center">SYNC</p>
+                    <div class="p-6 bg-white/5 rounded-3xl border border-white/5 text-green-500 text-center text-center text-center text-center text-center">
+                        <p class="text-[9px] font-black uppercase text-slate-500 tracking-widest text-center text-center text-center text-center text-center text-center text-center text-center">Node Status</p>
+                        <p class="text-2xl font-black italic text-center text-center text-center text-center text-center text-center text-center text-center">SYNC</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Compact Ecosystem Directory -->
+    <section id="ecosystem" class="py-24 px-6 fade-in-section bg-black/20 border-t border-white/5 text-left">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 text-left">
+                <div class="text-left text-left">
+                    <div class="inline-flex items-center gap-3 px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-6 text-left">
+                        <i data-lucide="package" class="text-indigo-400 w-4 h-4 text-left"></i>
+                        <span class="mono text-[9px] font-black uppercase tracking-widest text-indigo-400 text-left text-left">Digital Asset Hub</span>
+                    </div>
+                    <h2 class="text-5xl md:text-6xl font-black uppercase italic tracking-tighter text-white text-left text-left">Featured <span class="text-indigo-600">Assets.</span></h2>
+                </div>
+                <p class="max-w-xs text-slate-600 text-[10px] font-light italic leading-relaxed text-left text-left">Flagship software & industrial businesses optimized for the Spark ecosystem.</p>
+            </div>
+
+            <!-- COMPACT GRID -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-left text-left">
+                <div class="compact-asset-card bg-slate-900/40 border border-white/5 group hover:border-indigo-500/50 transition-all text-left">
+                    <div class="w-10 h-10 bg-indigo-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="file-text" class="text-indigo-500"></i>
+                    </div>
+                    <h4 class="font-black text-white uppercase italic tracking-tight">Docs Creator</h4>
+                    <p class="text-slate-500 italic font-light">AI engine for CVs & professional letters.</p>
+                </div>
+                <div class="compact-asset-card bg-slate-900/40 border border-white/5 group hover:border-indigo-500/50 transition-all text-left">
+                    <div class="w-10 h-10 bg-yellow-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="mic-2" class="text-yellow-500"></i>
+                    </div>
+                    <h4 class="font-black text-white uppercase italic tracking-tight">JamTalk</h4>
+                    <p class="text-slate-500 italic font-light">Immersive Jamaican Patois voice training.</p>
+                </div>
+                <div class="compact-asset-card bg-slate-900/40 border border-white/5 group hover:border-indigo-500/50 transition-all text-left">
+                    <div class="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="smartphone" class="text-blue-500"></i>
+                    </div>
+                    <h4 class="font-black text-white uppercase italic tracking-tight">Transit OS</h4>
+                    <p class="text-slate-500 italic font-light">Transportation routing and management.</p>
+                </div>
+                <div class="compact-asset-card bg-slate-900/40 border border-white/5 group hover:border-indigo-500/50 transition-all text-left">
+                    <div class="w-10 h-10 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="code" class="text-purple-500"></i>
+                    </div>
+                    <h4 class="font-black text-white uppercase italic tracking-tight">MoMo Ledger</h4>
+                    <p class="text-slate-500 italic font-light">Communal capital verification software.</p>
+                </div>
+                <div class="compact-asset-card bg-slate-900/40 border border-white/5 group hover:border-indigo-500/50 transition-all text-left">
+                    <div class="w-10 h-10 bg-orange-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="layout" class="text-orange-500"></i>
+                    </div>
+                    <h4 class="font-black text-white uppercase italic tracking-tight">Navigator</h4>
+                    <p class="text-slate-500 italic font-light">Indoor spatial data engine for malls.</p>
+                </div>
+                <div class="compact-asset-card bg-slate-900/40 border border-white/5 group hover:border-indigo-500/50 transition-all text-left">
+                    <div class="w-10 h-10 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="briefcase" class="text-green-500"></i>
+                    </div>
+                    <h4 class="font-black text-white uppercase italic tracking-tight">Agent Net</h4>
+                    <p class="text-slate-500 italic font-light">Informal commerce trust networking.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="py-20 border-t border-white/5 px-6 bg-[#020205] text-left">
+    <footer class="py-20 border-t border-white/5 px-6 bg-[#020205] text-left text-left text-left text-left text-left text-left">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 text-white">
-           <div class="flex flex-col text-left">
-                <span class="font-black text-3xl italic tracking-tighter text-left">Spark Operations</span>
-                <span class="mono text-[8px] text-indigo-500 tracking-[0.4em] uppercase text-left text-left">Authored by Architect Spark Dzakpasu</span>
+           <div class="flex flex-col text-left w-full md:w-auto">
+                <span class="font-black text-3xl italic tracking-tighter text-left text-left">Spark Operations</span>
+                <span class="mono text-[8px] text-indigo-500 tracking-[0.4em] uppercase text-left text-left text-left">Authored by Architect Spark Dzakpasu</span>
            </div>
-           <div class="flex items-center gap-10">
+           
+           <div class="flex items-center gap-10 text-left text-left">
                 <div class="flex flex-col text-right mr-4 text-right">
                     <span class="mono text-[8px] text-slate-700 uppercase">System Time</span>
                     <span id="footer-time" class="mono text-[10px] text-slate-500 font-bold text-right">00:00:00 UTC</span>
                 </div>
-                <div class="w-16 h-16 flex items-center justify-center overflow-hidden rounded-2xl bg-white/5 p-2 border border-white/10 text-left">
+                <div class="w-16 h-16 flex items-center justify-center overflow-hidden rounded-2xl bg-white/5 p-2 border border-white/10 text-left text-left">
                     <img src="https://iili.io/fww4QyB.png" alt="Logo" class="w-full h-full object-contain">
                 </div>
            </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-20 pt-10 border-t border-white/5 flex justify-between text-[8px] mono text-slate-800 uppercase tracking-widest text-left">
+        <div class="max-w-7xl mx-auto mt-20 pt-10 border-t border-white/5 flex justify-between text-[8px] mono text-slate-800 uppercase tracking-widest text-left text-left">
             <p>© 2025 Spark Operations Node Net.</p>
             <p>Accra Terminal | +233551389510</p>
         </div>
     </footer>
 
     <!-- MODALS -->
-    <!-- Donation Modal (MTN MoMo Hub) -->
     <div id="donationModal" class="modal">
         <div class="absolute inset-0 bg-black/98 backdrop-blur-3xl text-left" onclick="toggleModal('donationModal', false)"></div>
-        <div class="relative w-full max-w-md glass-panel rounded-[3.5rem] p-10 border border-indigo-500/20 shadow-[0_0_50px_rgba(99,102,241,0.2)] text-white text-center">
-            <button onclick="toggleModal('donationModal', false)" class="absolute top-8 right-8 text-slate-500 hover:text-white text-left"><i data-lucide="x"></i></button>
+        <div class="relative w-full max-w-md glass-panel rounded-[3.5rem] p-10 border border-indigo-500/20 shadow-2xl text-white text-center">
+            <button onclick="toggleModal('donationModal', false)" class="absolute top-8 right-8 text-slate-500 hover:text-white text-left text-left"><i data-lucide="x"></i></button>
             <div class="mb-10 text-center">
                 <div class="w-20 h-20 bg-yellow-400 rounded-[2rem] flex items-center justify-center mx-auto mb-6 shadow-xl text-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/MTN_Logo.svg/1200px-MTN_Logo.svg.png" class="w-12 h-12 object-contain" alt="MTN">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/MTN_Logo.svg/1200px-MTN_Logo.svg.png" class="w-12 h-12 object-contain" alt="MTN text-center">
                 </div>
                 <h3 class="text-3xl font-black uppercase italic tracking-tighter text-center">Impact Fund</h3>
                 <p class="mono text-[10px] text-indigo-400 uppercase tracking-widest mt-2 text-center text-center">MTN Mobile Money Hub</p>
             </div>
-            <div class="bg-white/5 border border-white/10 rounded-3xl p-8 space-y-6 text-left relative overflow-hidden group text-left">
+            <div class="bg-white/5 border border-white/10 rounded-3xl p-8 space-y-6 text-left relative overflow-hidden group">
                 <div>
                     <p class="mono text-[8px] text-slate-500 uppercase tracking-widest mb-1 text-left">Registered Name</p>
                     <p class="text-xl font-black italic text-white tracking-tight uppercase text-left">Seyram Dzakpasu</p>
                 </div>
-                <div class="pt-4 border-t border-white/5 text-left">
+                <div class="pt-4 border-t border-white/5 text-left text-left">
                     <p class="mono text-[8px] text-slate-500 uppercase tracking-widest mb-1 text-left">Transfer Number</p>
-                    <div class="flex justify-between items-center bg-black/40 p-4 rounded-2xl border border-white/5 text-left">
-                        <p class="text-2xl font-black text-indigo-400 tracking-wider text-left">0551389510</p>
-                        <button onclick="copyMoMo('0551389510')" class="p-2 hover:bg-white/5 rounded-lg text-indigo-500 text-left"><i data-lucide="copy"></i></button>
+                    <div class="flex justify-between items-center bg-black/40 p-4 rounded-2xl border border-white/5 text-left text-left">
+                        <p class="text-2xl font-black text-indigo-400 tracking-wider text-left text-left">0551389510</p>
+                        <button onclick="copyMoMo('0551389510')" class="p-2 hover:bg-white/5 rounded-lg text-indigo-500 text-left text-left"><i data-lucide="copy text-left"></i></button>
                     </div>
                 </div>
             </div>
@@ -650,16 +729,16 @@
         </div>
     </div>
 
-    <!-- Join the Network (Application Hub) -->
+    <!-- Registration Modal -->
     <div id="registerModal" class="modal">
         <div class="absolute inset-0 bg-black/98 backdrop-blur-2xl text-left" onclick="toggleModal('registerModal', false)"></div>
-        <div class="relative w-full max-w-xl glass-panel rounded-[3.5rem] p-10 border border-white/10 shadow-2xl text-white text-left text-left">
-            <button onclick="toggleModal('registerModal', false)" class="absolute top-8 right-8 text-slate-500 hover:text-white transition-colors text-left"><i data-lucide="x"></i></button>
+        <div class="relative w-full max-w-xl glass-panel rounded-[3.5rem] p-10 border border-white/10 shadow-2xl text-white text-left">
+            <button onclick="toggleModal('registerModal', false)" class="absolute top-8 right-8 text-slate-500 hover:text-white transition-colors text-left text-left"><i data-lucide="x"></i></button>
             <h3 class="text-3xl font-black uppercase italic tracking-tighter mb-2 text-left">Join the Network</h3>
-            <p class="text-slate-400 text-sm mb-10 italic font-light text-left text-left">"Apply to become a partner. Tell us what value (Skills or Capital) you bring, and we will verify your starting equity stake."</p>
+            <p class="text-slate-400 text-sm mb-10 italic font-light text-left text-left text-left">"Apply to become a partner. Describe what value (Skills or Capital) you bring, and we will verify your starting equity stake."</p>
             <form id="regForm" class="space-y-4 text-left text-left">
                 <input required type="text" id="regName" class="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-8 text-white text-sm mono focus:border-indigo-500 outline-none text-left" placeholder="YOUR FULL NAME">
-                <textarea required id="regDesc" class="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-8 text-white text-sm mono h-24 focus:border-indigo-500 outline-none resize-none text-left" placeholder="DESCRIBE YOUR CONTRIBUTION (E.G. I HAVE 20 HOURS/WEEK TO BUILD SYSTEMS)"></textarea>
+                <textarea required id="regDesc" class="w-full bg-black/40 border border-white/5 rounded-2xl py-4 px-8 text-white text-sm mono h-24 focus:border-indigo-500 outline-none resize-none text-left" placeholder="DESCRIBE YOUR CONTRIBUTION (E.G. 20 HOURS/WEEK TO DEVELOP SOFTWARE)"></textarea>
                 <button type="submit" class="w-full py-5 bg-indigo-600 rounded-full font-black text-lg uppercase italic text-white transition-all text-center">Submit Application</button>
             </form>
         </div>
@@ -668,17 +747,16 @@
     <!-- Insight Modal -->
     <div id="insightModal" class="modal">
         <div class="absolute inset-0 bg-black/95 backdrop-blur-3xl text-left" onclick="toggleModal('insightModal', false)"></div>
-        <div class="relative w-full max-w-2xl glass-panel rounded-[3.5rem] p-10 md:p-16 shadow-2xl overflow-y-auto max-h-[90vh] text-left">
-            <button onclick="toggleModal('insightModal', false)" class="absolute top-10 right-10 text-slate-500 hover:text-white transition-colors text-left"><i data-lucide="x"></i></button>
-            <div id="insightIcon" class="mb-10 w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center border border-white/5 text-indigo-400 text-center text-center"></div>
-            <h3 id="insightTitle" class="text-5xl font-black uppercase italic mb-8 text-white tracking-tighter leading-none text-left text-left"></h3>
+        <div class="relative w-full max-w-2xl glass-panel rounded-[3.5rem] p-10 md:p-16 shadow-2xl overflow-y-auto max-h-[90vh] text-left text-left">
+            <button onclick="toggleModal('insightModal', false)" class="absolute top-10 right-10 text-slate-500 hover:text-white transition-colors text-left text-left text-left"><i data-lucide="x"></i></button>
+            <div id="insightIcon" class="mb-10 w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center border border-white/5 text-indigo-400 text-center text-center text-center"></div>
+            <h3 id="insightTitle" class="text-5xl font-black uppercase italic mb-8 text-white tracking-tighter leading-none text-left text-left text-left"></h3>
             <div id="insightContent" class="text-slate-300 leading-relaxed font-light mb-12 space-y-8 text-left text-sm italic text-left text-left"></div>
             <button onclick="investFromInsight()" class="w-full py-6 bg-indigo-600 rounded-full font-black uppercase italic text-xl text-white text-center">Apply to Back Station</button>
         </div>
     </div>
 
     <script>
-        // GLOBAL STATE & FUNCTIONS
         function refreshIcons() { if(typeof lucide !== 'undefined') lucide.createIcons(); }
         
         function toggleModal(id, show) {
@@ -711,52 +789,49 @@
             toggleModal('registerModal', true);
         }
 
+        function handleAI(type) { showSystemToast("Handshaking with Neural Link..."); }
+
         const ventures = [
-            { id: "lp", title: "Launchpad Node", code: "NODE_LP_01", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop", icon: "rocket", color: "indigo", problem: "Ideas dying due to lack of funding.", text: "The Launchpad is our primary external handshake. We back high-potential ideas with initial capital and technical infrastructure." },
-            { id: "tx", title: "Unified Transport", code: "NODE_TX_02", img: "https://unifiedtransportsystems.co.uk/wp-content/uploads/2020/04/UTS_Illustrations_v2-03.png", icon: "map", color: "indigo", problem: "Transit inefficiency.", text: "A digital hub integrating formal and informal transit in one live system." },
-            { id: "re", title: "Rent Support", code: "NODE_RE_03", img: "https://phumulani.org/wp-content/uploads/2021/09/photo5906778130763331193-1024x682.jpg", icon: "key", color: "purple", problem: "Lump-sum rent demands.", text: "Algorithmic rent support eliminating high entry barriers." },
-            { id: "en", title: "Waste-to-Energy", code: "NODE_EN_04", img: "https://waste-management-world.com/imager/media/wasteManagementWorld/6647441/AdobeStock_1147988139_428fd902f4247199467725e7eccf1673.jpeg", icon: "flame", color: "green", problem: "Fuel cost; unmanaged waste.", text: "Converting biomass into cooking gas via molecular conversion." },
-            { id: "tr", title: "Verified Agent Net", code: "NODE_TR_05", img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop", icon: "user-check", color: "blue", problem: "Informal market fraud.", text: "Trust architecture connecting users to verified sub-nodes." },
-            { id: "nav", title: "Smart Navigation", code: "NODE_NAV_06", img: "https://www.androiddeveloper.co.in/blog/wp-content/uploads/2017/05/smart-navigation-app.jpg", icon: "locate", color: "pink", problem: "Lost mall shoppers.", text: "Precision indoor tracking system for malls and large commercial spaces." },
-            { id: "sr", title: "Office Errand Node", code: "NODE_SR_07", img: "https://www.peppyocean.com/wp-content/uploads/2022/02/errand-service.png", icon: "package", color: "orange", text: "Human capital preservation via workstation-delivery.", problem: "Erran-waste during hours." },
-            { id: "ai", title: "Retail Loss AI", code: "NODE_AI_08", img: "https://holistiquetraining.com/storage/new-courses/ind09-104-retail-loss-prevention-345x260.webp", icon: "bar-chart-2", color: "red", text: "Algorithmic revenue leakage detection.", problem: "Retail revenue drain." },
-            { id: "cm", title: "Buyer-Driven Net", code: "NODE_CM_09", img: "https://www.blychain.com/assets/images/smartctrackerN.jpg", icon: "shopping-cart", color: "teal", text: "Inverted bid commerce.", problem: "Inefficient static listings." },
-            { id: "ec", title: "Mobile Eco-Care", code: "NODE_EC_10", img: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=800&auto=format&fit=crop", icon: "droplet", color: "sky", text: "Sustainable car care sub-station.", problem: "Wasteful car washes." },
-            { id: "lb", title: "Infrastructure Lab", code: "NODE_LB_11", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop", icon: "cpu", color: "indigo", text: "Urban energy protocols.", problem: "Unstable urban foundations." }
+            { id: "lp", title: "Launchpad Node", code: "NODE_LP_01", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop", icon: "rocket", problem: "Ideas dying due to lack of funding." },
+            { id: "tx", title: "Unified Transport", code: "NODE_TX_02", img: "https://unifiedtransportsystems.co.uk/wp-content/uploads/2020/04/UTS_Illustrations_v2-03.png", icon: "map", problem: "Transit inefficiency." },
+            { id: "re", title: "Rent Support", code: "NODE_RE_03", img: "https://phumulani.org/wp-content/uploads/2021/09/photo5906778130763331193-1024x682.jpg", icon: "key", problem: "Lump-sum rent demands." },
+            { id: "en", title: "Waste-to-Energy", code: "NODE_EN_04", img: "https://waste-management-world.com/imager/media/wasteManagementWorld/6647441/AdobeStock_1147988139_428fd902f4247199467725e7eccf1673.jpeg", icon: "flame", problem: "Fuel cost; unmanaged waste." },
+            { id: "tr", title: "Verified Agent Net", code: "NODE_TR_05", img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop", icon: "user-check", problem: "Informal market fraud." },
+            { id: "nav", title: "Smart Navigation", code: "NODE_NAV_06", img: "https://www.androiddeveloper.co.in/blog/wp-content/uploads/2017/05/smart-navigation-app.jpg", icon: "locate", problem: "Lost mall shoppers." },
+            { id: "sr", title: "Office Errand Node", code: "NODE_SR_07", img: "https://www.peppyocean.com/wp-content/uploads/2022/02/errand-service.png", icon: "package", problem: "Erran-waste during hours." },
+            { id: "ai", title: "Retail Loss AI", code: "NODE_AI_08", img: "https://holistiquetraining.com/storage/new-courses/ind09-104-retail-loss-prevention-345x260.webp", icon: "bar-chart-2", problem: "Retail revenue drain." },
+            { id: "cm", title: "Buyer-Driven Net", code: "NODE_CM_09", img: "https://www.blychain.com/assets/images/smartctrackerN.jpg", icon: "shopping-cart", problem: "Inefficient static listings." },
+            { id: "ec", title: "Mobile Eco-Care", code: "NODE_EC_10", img: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=800&auto=format&fit=crop", icon: "droplet", problem: "Wasteful car washes." },
+            { id: "lb", title: "Infrastructure Lab", code: "NODE_LB_11", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop", icon: "cpu", problem: "Unstable urban foundations." }
         ];
 
         window.showVenture = (id) => {
             const v = ventures.find(x => x.id === id);
             if(!v) return;
             document.getElementById('insightTitle').innerText = v.title;
-            document.getElementById('insightIcon').innerHTML = `<i data-lucide="${v.icon}" class="w-8 h-8 text-center"></i>`;
-            document.getElementById('insightContent').innerHTML = `<p class="text-xl text-white font-black uppercase italic">${v.problem}</p><p class="text-slate-300 italic">${v.text || ''}</p>`;
+            document.getElementById('insightIcon').innerHTML = `<i data-lucide="${v.icon}" class="w-8 h-8"></i>`;
+            document.getElementById('insightContent').innerHTML = `<p class="text-xl text-white font-black uppercase italic">${v.problem}</p>`;
             toggleModal('insightModal', true);
         };
 
-        // CURSOR ANIMATION SYSTEM
+        // CURSOR ANIMATION
         const cursor = document.getElementById('custom-cursor');
         const ring = document.getElementById('cursor-ring');
-        let mouseX = 0, mouseY = 0;
-        let ringX = 0, ringY = 0;
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
 
         window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+            mouseX = e.clientX; mouseY = e.clientY;
             cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
         });
 
-        // SMOOTH LERP FOR OUTER RING
         function animateCursor() {
             const lerp = (a, b, n) => (1 - n) * a + n * b;
-            ringX = lerp(ringX, mouseX, 0.15);
-            ringY = lerp(ringY, mouseY, 0.15);
+            ringX = lerp(ringX, mouseX, 0.15); ringY = lerp(ringY, mouseY, 0.15);
             ring.style.transform = `translate3d(${ringX - 16}px, ${ringY - 16}px, 0)`;
             requestAnimationFrame(animateCursor);
         }
         animateCursor();
 
-        // Cursor State Changes
         document.querySelectorAll('button, a, .venture-card').forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('cursor-active'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-active'));
@@ -767,21 +842,21 @@
             if(ventureGrid) {
                 ventureGrid.innerHTML = ventures.map(v => `
                     <div class="venture-card group relative rounded-[2.5rem] overflow-hidden cursor-pointer flex flex-col shadow-lg" onclick="showVenture('${v.id}')">
-                        <div class="venture-image-container">
-                            <div class="img-overlay"></div>
-                            <img src="${v.img}" class="venture-img" alt="${v.title}">
-                            <div class="absolute top-4 left-4 flex items-center gap-2 px-2 py-1 bg-black/60 rounded text-[7px] mono uppercase text-white backdrop-blur-sm z-10 font-bold">
-                                <span class="node-pulse"></span> live_feed_${v.code}
+                        <div class="venture-image-container text-left text-left">
+                            <div class="img-overlay text-left"></div>
+                            <img src="${v.img}" class="venture-img text-left" alt="${v.title}">
+                            <div class="absolute top-4 left-4 flex items-center gap-2 px-2 py-1 bg-black/60 rounded text-[7px] mono uppercase text-white backdrop-blur-sm z-10 font-bold text-left">
+                                <span class="node-pulse text-left"></span> live_feed_${v.code}
                             </div>
                         </div>
-                        <div class="p-10 flex flex-col justify-between flex-grow text-left">
-                            <div class="relative z-10 text-left">
+                        <div class="p-10 flex flex-col justify-between flex-grow text-left text-left">
+                            <div class="relative z-10 text-left text-left">
                                 <div class="flex justify-between items-start mb-6 text-left">
-                                    <h4 class="text-2xl font-black uppercase italic leading-tight text-white tracking-tighter text-left">${v.title}</h4>
-                                    <span class="mono text-[7px] text-slate-700 tracking-widest text-left">${v.code}</span>
+                                    <h4 class="text-2xl font-black uppercase italic leading-tight text-white tracking-tighter text-left text-left">${v.title}</h4>
+                                    <span class="mono text-[7px] text-slate-700 tracking-widest text-left text-left">${v.code}</span>
                                 </div>
-                                <p class="text-slate-600 text-[11px] font-light leading-relaxed italic line-clamp-2 text-left">${v.problem}</p>
-                                <div class="text-indigo-400 text-[9px] font-black uppercase tracking-widest pt-6 border-t border-white/5 mt-auto text-left">Node Insight <i data-lucide="arrow-right" class="w-3 h-3 inline"></i></div>
+                                <p class="text-slate-600 text-[11px] font-light leading-relaxed italic line-clamp-2 text-left text-left">${v.problem}</p>
+                                <div class="text-indigo-400 text-[9px] font-black uppercase tracking-widest pt-6 border-t border-white/5 mt-auto text-left text-left">Node Insight <i data-lucide="arrow-right text-left text-left" class="w-3 h-3 inline text-left text-left"></i></div>
                             </div>
                         </div>
                     </div>
@@ -817,7 +892,7 @@
 
             document.getElementById('regForm').addEventListener('submit', (e) => {
                 e.preventDefault();
-                const msg = encodeURIComponent(`Spark Hub Partner Application:\nName: ${document.getElementById('regName').value}\nNote: ${document.getElementById('regDesc').value}`);
+                const msg = encodeURIComponent(`Spark Hub Membership Request:\nName: ${document.getElementById('regName').value}\nLog: ${document.getElementById('regDesc').value}`);
                 window.open(`https://wa.me/233551389510?text=${msg}`, '_blank');
             });
 
